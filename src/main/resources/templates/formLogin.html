@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body  style="background-color: #007bff">
+        <div>
+            <div class="container-sm p-3 w-75 border rounded-lg shadow" style="margin-top: 7%;background-color: white">
+                <div class="row">
+                    <div class="col-6">
+                        <img src="https://img.freepik.com/free-vector/account-log-page_41910-263.jpg?size=626&ext=jpg" />
+                    </div>
+                    <div class="col-6"; style="margin-top: -17%">
+                        <div>
+                            <div class="container" style="margin-left: 20%">
+                                <form th:action="@{loginProcess}" method="POST" style="margin-top: 60%" class="was-validated">
+                                    <table width="50%" style="margin-top: 15%;font-family: 'Playfair Display';" cellpadding="1">
+                                        <tr>
+                                            <td>Email :</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-group">
+                                                    <input type="text" name="username" class="form-control" required="true" />
+                                                    <div class="valid-feedback"></div>
+                                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Password :</td>
+                                        </tr>
+                                        <tr>
+                                            <td><div class="form-group">
+                                                    <input type="password" name="password" class="form-control" required="true" />
+                                                    <div class="valid-feedback"></div>
+                                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1" style="text-align: center">
+                                                <button type="submit" value="Login" name="Login" class="btn btn-primary float-md-right">Login</button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
+                                <br>
+                                <span>Don't have any account? <a href="registrasi">Sign Up</a></span>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
