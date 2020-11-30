@@ -35,7 +35,7 @@ public class User implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "id")
-    private String id;
+    private Integer id;
     @Basic(optional = false)
     @Column(name = "divisi")
     private int divisi;
@@ -52,11 +52,11 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(String id) {
+    public User(Integer id) {
         this.id = id;
     }
 
-    public User(String id, int divisi, String nama, String email, int phone) {
+    public User(Integer id, int divisi, String nama, String email, int phone) {
         this.id = id;
         this.divisi = divisi;
         this.nama = nama;
@@ -64,11 +64,11 @@ public class User implements Serializable {
         this.phone = phone;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -126,7 +126,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.metrodata.tas.entities.rest.User[ id=" + id + " ]";
+        return "com.metrodata.tas.entities.User[ id=" + id + " ]";
     }
     
 }
