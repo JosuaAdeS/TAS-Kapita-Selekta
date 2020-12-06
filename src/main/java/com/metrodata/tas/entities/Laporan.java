@@ -10,7 +10,10 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -28,9 +31,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Laporan.findAll", query = "SELECT l FROM Laporan l")
     , @NamedQuery(name = "Laporan.findById", query = "SELECT l FROM Laporan l WHERE l.id = :id")
-    , @NamedQuery(name = "Laporan.findByUser", query = "SELECT l FROM Laporan l WHERE l.user = :user")
-    , @NamedQuery(name = "Laporan.findByDivisi", query = "SELECT l FROM Laporan l WHERE l.divisi = :divisi")
-    , @NamedQuery(name = "Laporan.findByCurrentStatus", query = "SELECT l FROM Laporan l WHERE l.currentStatus = :currentStatus")
     , @NamedQuery(name = "Laporan.findByJudulLaporan", query = "SELECT l FROM Laporan l WHERE l.judulLaporan = :judulLaporan")
     , @NamedQuery(name = "Laporan.findByIsiLaporan", query = "SELECT l FROM Laporan l WHERE l.isiLaporan = :isiLaporan")
     , @NamedQuery(name = "Laporan.findByTanggalLaporan", query = "SELECT l FROM Laporan l WHERE l.tanggalLaporan = :tanggalLaporan")
@@ -42,15 +42,6 @@ public class Laporan implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private String id;
-    @Basic(optional = false)
-    @Column(name = "user")
-    private String user;
-    @Basic(optional = false)
-    @Column(name = "divisi")
-    private int divisi;
-    @Basic(optional = false)
-    @Column(name = "current_status")
-    private int currentStatus;
     @Basic(optional = false)
     @Column(name = "judul_laporan")
     private String judulLaporan;
@@ -64,6 +55,15 @@ public class Laporan implements Serializable {
     @Basic(optional = false)
     @Column(name = "deskripsi_status")
     private String deskripsiStatus;
+    @JoinColumn(name = "current_status", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Status currentStatus;
+    @JoinColumn(name = "divisi", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Divisi divisi;
+    @JoinColumn(name = "user", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private User user;
 
     public Laporan() {
     }
@@ -72,11 +72,8 @@ public class Laporan implements Serializable {
         this.id = id;
     }
 
-    public Laporan(String id, String user, int divisi, int currentStatus, String judulLaporan, String isiLaporan, Date tanggalLaporan, String deskripsiStatus) {
+    public Laporan(String id, String judulLaporan, String isiLaporan, Date tanggalLaporan, String deskripsiStatus) {
         this.id = id;
-        this.user = user;
-        this.divisi = divisi;
-        this.currentStatus = currentStatus;
         this.judulLaporan = judulLaporan;
         this.isiLaporan = isiLaporan;
         this.tanggalLaporan = tanggalLaporan;
@@ -89,30 +86,6 @@ public class Laporan implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public int getDivisi() {
-        return divisi;
-    }
-
-    public void setDivisi(int divisi) {
-        this.divisi = divisi;
-    }
-
-    public int getCurrentStatus() {
-        return currentStatus;
-    }
-
-    public void setCurrentStatus(int currentStatus) {
-        this.currentStatus = currentStatus;
     }
 
     public String getJudulLaporan() {
@@ -145,6 +118,30 @@ public class Laporan implements Serializable {
 
     public void setDeskripsiStatus(String deskripsiStatus) {
         this.deskripsiStatus = deskripsiStatus;
+    }
+
+    public Status getCurrentStatus() {
+        return currentStatus;
+    }
+
+    public void setCurrentStatus(Status currentStatus) {
+        this.currentStatus = currentStatus;
+    }
+
+    public Divisi getDivisi() {
+        return divisi;
+    }
+
+    public void setDivisi(Divisi divisi) {
+        this.divisi = divisi;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

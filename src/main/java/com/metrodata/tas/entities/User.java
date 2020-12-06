@@ -9,7 +9,10 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -25,59 +28,44 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
     , @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id")
-    , @NamedQuery(name = "User.findByDivisi", query = "SELECT u FROM User u WHERE u.divisi = :divisi")
     , @NamedQuery(name = "User.findByNama", query = "SELECT u FROM User u WHERE u.nama = :nama")
-    , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
-    , @NamedQuery(name = "User.findByPhone", query = "SELECT u FROM User u WHERE u.phone = :phone")})
+    , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
-    @Basic(optional = false)
-    @Column(name = "divisi")
-    private int divisi;
+    private String id;
     @Basic(optional = false)
     @Column(name = "nama")
     private String nama;
     @Basic(optional = false)
     @Column(name = "email")
     private String email;
-    @Basic(optional = false)
-    @Column(name = "phone")
-    private int phone;
+    @JoinColumn(name = "divisi", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Divisi divisi;
 
     public User() {
     }
 
-    public User(Integer id) {
+    public User(String id) {
         this.id = id;
     }
 
-    public User(Integer id, int divisi, String nama, String email, int phone) {
+    public User(String id, String nama, String email) {
         this.id = id;
-        this.divisi = divisi;
         this.nama = nama;
         this.email = email;
-        this.phone = phone;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
-    }
-
-    public int getDivisi() {
-        return divisi;
-    }
-
-    public void setDivisi(int divisi) {
-        this.divisi = divisi;
     }
 
     public String getNama() {
@@ -96,12 +84,12 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public int getPhone() {
-        return phone;
+    public Divisi getDivisi() {
+        return divisi;
     }
 
-    public void setPhone(int phone) {
-        this.phone = phone;
+    public void setDivisi(Divisi divisi) {
+        this.divisi = divisi;
     }
 
     @Override

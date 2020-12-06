@@ -25,41 +25,46 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
-	boolean shouldAuthenticateAgainstThirdPartySystem = true;
-        
-        LoginInput loginIn = new LoginInput();
-        LoginOutput loginOut = new LoginOutput();
-        
-        @Autowired
-        LoginRestService service;
-        
-	@Override
-	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		String name = authentication.getName();
-		String password = authentication.getCredentials().toString();
-                
-                loginIn.setEmail(name);
-                loginIn.setPassword(password);
-                
-                loginOut = service.login(loginIn);
+    boolean shouldAuthenticateAgainstThirdPartySystem = true;
 
-		if (loginOut.getStatus().equalsIgnoreCase("Verified")) {
-			final List<GrantedAuthority> grantedAuths = new ArrayList<>();
-			grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
-			final UserDetails principal = new User(name, password, grantedAuths);
-			final Authentication auth = new UsernamePasswordAuthenticationToken(principal, password, grantedAuths);
-			
-                        return auth;
-		} else {
-			return null;
-		}
+    LoginInput loginIn = new LoginInput();
+    LoginOutput loginOut = new LoginOutput();
 
-	}
+    @Autowired
+    LoginRestService service;
 
-	@Override
-	public boolean supports(Class<?> authentication) {
+    @Override
+    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        String name = authentication.getName();
+        String password = authentication.getCredentials().toString();
 
-		return authentication.equals(UsernamePasswordAuthenticationToken.class);
-	}
+        loginIn.setEmail(name);
+        loginIn.setPassword(password);
+
+        loginOut = service.login(loginIn);
+
+        if (loginOut.getStatus().equalsIgnoreCase("Verified")) {
+            final List<GrantedAuthority> grantedAuths = new ArrayList<>();
+            grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
+            final UserDetails principal = new User(name, password, grantedAuths);
+            final Authentication auth = new UsernamePasswordAuthenticationToken(principal, password, grantedAuths);
+            
+            if (service.getById(loginOut.getUser().getId())) {
+                System.out.println("Sudah pernah login sebelumnya");
+            } else {
+                service.save(new com.metrodata.tas.entities.User(loginOut.getUser().getId(), loginOut.getUser().getName(), loginOut.getUser().getEmail()));
+            }
+            return auth;
+        } else {
+            return null;
+        }
+
+    }
+
+    @Override
+    public boolean supports(Class<?> authentication) {
+
+        return authentication.equals(UsernamePasswordAuthenticationToken.class);
+    }
 
 }

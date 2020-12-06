@@ -5,8 +5,10 @@
  */
 package com.metrodata.tas.services;
 
+import com.metrodata.tas.entities.User;
 import com.metrodata.tas.entities.rest.LoginInput;
 import com.metrodata.tas.entities.rest.LoginOutput;
+import com.metrodata.tas.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -33,5 +35,25 @@ public class LoginRestService {
                 }
         );
         return responseEntity.getBody();
+    }
+    
+    @Autowired
+    UserRepository repository;
+    public boolean save(User user){
+        try {
+            repository.save(user);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
+    public boolean getById(String id){
+        try {
+            repository.findById(id).get();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
