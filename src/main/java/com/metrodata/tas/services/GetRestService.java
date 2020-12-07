@@ -6,8 +6,11 @@
 package com.metrodata.tas.services;
 
 import com.metrodata.tas.entities.rest.Major;
+import com.metrodata.tas.entities.rest.ProfileBasic;
 import com.metrodata.tas.entities.rest.University;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -49,6 +52,17 @@ public class GetRestService {
         });
         result = response.getBody();
         return result;
+    }
+
+    public ProfileBasic getProfileBasic(String id) {
+        ProfileBasic result;
+        Map<String, String> param = new HashMap<>();
+
+        param.put("id", id);
+
+        result = restTemplate.getForObject("http://116.254.101.228:8080/ma_test/profile/basic/{id}", ProfileBasic.class, param);
+        return result;
+
     }
     
 }

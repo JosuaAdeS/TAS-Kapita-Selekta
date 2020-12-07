@@ -11,6 +11,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
         <style>
             .ml-30{
                 margin-left:30px;
@@ -21,9 +22,10 @@ and open the template in the editor.
         </style>
     </head>
     <body class="col-lg-12" style="background-color:white">
+        <div th:replace="fragments/user::header"></div>
     <center>
 
-        <div style='text-align: left'>
+        <div style='text-align: left;padding-top: 5%;'>
             <font class='h2'> <strong> Pelaporan Masalah Metrodata </strong> </font>
         </div>
         <div class="row">
@@ -75,5 +77,6 @@ and open the template in the editor.
             </div>
         </div>
     </center>
+        <div th:replace="fragments/user::footer"></div>
 </body>
 </html>

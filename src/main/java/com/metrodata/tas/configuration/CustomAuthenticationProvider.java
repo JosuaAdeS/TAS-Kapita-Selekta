@@ -5,6 +5,7 @@
  */
 package com.metrodata.tas.configuration;
 
+import com.metrodata.tas.entities.getId;
 import com.metrodata.tas.entities.rest.LoginInput;
 import com.metrodata.tas.entities.rest.LoginOutput;
 import com.metrodata.tas.services.LoginRestService;
@@ -42,13 +43,15 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         loginIn.setPassword(password);
 
         loginOut = service.login(loginIn);
-
+        System.out.println(loginOut);
+        
         if (loginOut.getStatus().equalsIgnoreCase("Verified")) {
             final List<GrantedAuthority> grantedAuths = new ArrayList<>();
             grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
             final UserDetails principal = new User(name, password, grantedAuths);
             final Authentication auth = new UsernamePasswordAuthenticationToken(principal, password, grantedAuths);
             
+            getId.id=loginOut.getUser().getId();
             if (service.getById(loginOut.getUser().getId())) {
                 System.out.println("Sudah pernah login sebelumnya");
             } else {
