@@ -80,6 +80,18 @@ public class Laporan implements Serializable {
         this.deskripsiStatus = deskripsiStatus;
     }
 
+    public Laporan(String id, String judulLaporan, String isiLaporan, Date tanggalLaporan, String deskripsiStatus, Status currentStatus, Divisi divisi, User user) {
+        this.id = id;
+        this.judulLaporan = judulLaporan;
+        this.isiLaporan = isiLaporan;
+        this.tanggalLaporan = tanggalLaporan;
+        this.deskripsiStatus = deskripsiStatus;
+        this.currentStatus = currentStatus;
+        this.divisi = divisi;
+        this.user = user;
+    }
+    
+    
     public String getId() {
         return id;
     }

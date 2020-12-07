@@ -7,6 +7,7 @@ package com.metrodata.tas.controllers;
 
 import com.metrodata.tas.entities.getId;
 import com.metrodata.tas.services.GetRestService;
+import com.metrodata.tas.services.LaporanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,5 +27,18 @@ public class homeUser {
         getService.getProfileBasic(getId.id);
         model.addAttribute("basic", getService.getProfileBasic(getId.id));
         return "home";
+    }
+    
+    @GetMapping("/history")
+    public String historyUser(){
+        return "history";
+    }
+    
+    @Autowired
+    LaporanService lapService;
+    @GetMapping("laporan")
+    public String saveLaporan(Model model){
+        lapService.saveLaporan();
+        return "redirect:/";
     }
 }

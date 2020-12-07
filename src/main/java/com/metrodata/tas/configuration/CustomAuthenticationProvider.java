@@ -44,7 +44,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         loginOut = service.login(loginIn);
         System.out.println(loginOut);
-        
         if (loginOut.getStatus().equalsIgnoreCase("Verified")) {
             final List<GrantedAuthority> grantedAuths = new ArrayList<>();
             grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
