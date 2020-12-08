@@ -52,7 +52,6 @@ public class Laporan implements Serializable {
     @Column(name = "tanggal_laporan")
     @Temporal(TemporalType.DATE)
     private Date tanggalLaporan;
-    @Basic(optional = false)
     @Column(name = "deskripsi_status")
     private String deskripsiStatus;
     @JoinColumn(name = "current_status", referencedColumnName = "id")
@@ -72,12 +71,11 @@ public class Laporan implements Serializable {
         this.id = id;
     }
 
-    public Laporan(String id, String judulLaporan, String isiLaporan, Date tanggalLaporan, String deskripsiStatus) {
+    public Laporan(String id, String judulLaporan, String isiLaporan, Date tanggalLaporan) {
         this.id = id;
         this.judulLaporan = judulLaporan;
         this.isiLaporan = isiLaporan;
         this.tanggalLaporan = tanggalLaporan;
-        this.deskripsiStatus = deskripsiStatus;
     }
 
     public Laporan(String id, String judulLaporan, String isiLaporan, Date tanggalLaporan, String deskripsiStatus, Status currentStatus, Divisi divisi, User user) {
@@ -90,7 +88,6 @@ public class Laporan implements Serializable {
         this.divisi = divisi;
         this.user = user;
     }
-    
     
     public String getId() {
         return id;

@@ -7,6 +7,7 @@ package com.metrodata.tas.services;
 
 import com.metrodata.tas.entities.Divisi;
 import com.metrodata.tas.entities.Laporan;
+import com.metrodata.tas.entities.LaporanInput;
 import com.metrodata.tas.entities.Status;
 import com.metrodata.tas.entities.User;
 import com.metrodata.tas.entities.getId;
@@ -24,14 +25,14 @@ public class LaporanService {
     @Autowired
     LaporanRespository repository;
     
-    public boolean saveLaporan(){
+    public boolean saveLaporan(LaporanInput input, Divisi divisi, Status currentStatus){
         try {
-            Status status = new Status(1);
-            Divisi divisi = new Divisi(1);
+            Status status = new Status(currentStatus.getId());
+            Divisi div = new Divisi(divisi.getId());
             User user = new User(getId.id);
             
-            Laporan laporan = new Laporan("LAP004", "coba", "AC Mati",new Date(),"Acnya di kantor ini mati pak", status, divisi, user);
-            repository.save(laporan);
+            Laporan lap = new Laporan("LAP0005", input.getJudulLaporan(), input.getIsiLaporan(), new Date(), input.getDeskripsiStatus(), currentStatus, divisi, user);
+            repository.save(lap);
             return true;
         } catch (Exception e) {
             System.out.println(e);

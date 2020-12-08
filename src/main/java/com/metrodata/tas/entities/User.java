@@ -6,7 +6,9 @@
 package com.metrodata.tas.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,8 +17,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,6 +35,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "User.findByNama", query = "SELECT u FROM User u WHERE u.nama = :nama")
     , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")})
 public class User implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Laporan> laporanList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -115,6 +122,15 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "com.metrodata.tas.entities.User[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public List<Laporan> getLaporanList() {
+        return laporanList;
+    }
+
+    public void setLaporanList(List<Laporan> laporanList) {
+        this.laporanList = laporanList;
     }
     
 }

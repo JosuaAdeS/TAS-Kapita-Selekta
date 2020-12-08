@@ -34,16 +34,16 @@ and open the template in the editor.
                     <div>
                     </div>
                     <p>Silahkan isi Form berikut :</p>
-                    <!--th:object="${registrasi}" th:action="@{save}"-->
-                    <form method="POST" id="laporan">
+                    <!---->
+                    <form th:action="@{savelaporan}" method="POST" id="laporan">
                         <div class="pr-4">
                             <table cellpadding="10">
                                 <tr>
-                                    <td> <input type="text" class="form-control ml-30" placeholder="Ketik Judul Laporan Anda"> </td>
+                                    <td> <input type="text" class="form-control ml-30" th:value="${input.judulLaporan}" name="judulLaporan" placeholder="Ketik Judul Laporan Anda"> </td>
                                 </tr>
                                 <tr>
-                                    <td> 
-                                        <select class='form-control ml-30'>
+                                    <td>
+                                        <select class='form-control ml-30' th:value="${divisi.id}" name="id">
                                             <option value="" disabled selected>Pilih divisi tujuan laporan Anda</option>
                                             <option value="1"> Keuangan </option>
                                             <option value="2"> HRD  </option>
@@ -52,11 +52,11 @@ and open the template in the editor.
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td> <textarea rows="4" cols="50" name="deskripsi" form="laporan" placeholder="Deskripsikan Laporan Anda" class='form-control ml-30'></textarea></td>
+                                    <td> <textarea rows="4" cols="50" th:value="${input.isiLaporan}" name="isiLaporan" placeholder="Deskripsikan Laporan Anda" class='form-control ml-30' ></textarea></td>
                                 </tr>
                                 <tr>
                                     <td> 
-                                        <select class='form-control ml-30' hidden="true">
+                                        <select class='form-control ml-30' hidden="true" th:value="${status.id}" name="id">
                                             <option value="1" selected="true"> Pending </option>
                                             <option value="2"> Denied  </option>
                                             <option value="3"> On Progress  </option>
@@ -65,7 +65,7 @@ and open the template in the editor.
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td> <textarea hidden="true" rows="4" cols="50" name="deskripsi" form="laporan" placeholder="Deskripsikan Laporan Anda" class='form-control ml-30'></textarea></td>
+                                    <td> <textarea hidden="true" rows="4" cols="50" name="deskripsi" th:value="${input.deskripsiStatus}" placeholder="Deskripsikan Status" class='form-control ml-30'></textarea></td>
                                 </tr>
 
                             </table>
