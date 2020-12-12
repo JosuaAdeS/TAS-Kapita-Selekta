@@ -13,6 +13,7 @@ import com.metrodata.tas.entities.Status;
 import com.metrodata.tas.entities.User;
 import com.metrodata.tas.repositories.DivisiRespository;
 import com.metrodata.tas.repositories.StatusRepository;
+import com.metrodata.tas.repositories.UserRepository;
 import com.metrodata.tas.services.GetRestService;
 import com.metrodata.tas.services.LaporanService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,18 +45,20 @@ public class HomeUser {
     
     @Autowired
     DivisiRespository divisiRespository;
+    
+    @Autowired
+    UserRepository userRepository;
 
     @GetMapping("/home")
-    public String homeUser(Model model) {
+    public String homeUser(Model model, Divisi d) {
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         getService.getProfileBasic(getId.id);
         if (user.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"))) {
-            model.addAttribute("laporan", lapService.getAll());
+            int id = userRepository.findById(getId.id).get().getDivisi().getId();
+            model.addAttribute("laporan", lapService.findByDivisi(id));
             model.addAttribute("statuses", statusRepository.findAll());
             model.addAttribute("divisies", divisiRespository.findAll());
             model.addAttribute("userid", getId.id);
-            model.addAttribute("divisi", new Divisi());
-            model.addAttribute("status", new Status());
             return "homeDivisi";
         } else if (user.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ROLE_LEARNER"))) {
             model.addAttribute("basic", getService.getProfileBasic(getId.id));

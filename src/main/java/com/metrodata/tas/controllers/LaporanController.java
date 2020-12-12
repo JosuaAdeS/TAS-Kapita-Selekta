@@ -39,4 +39,5 @@ public class LaporanController {
         lapService.updateLaporan(input);
         return "redirect:/home";
     }
+    
 }

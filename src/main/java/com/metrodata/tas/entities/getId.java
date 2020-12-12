@@ -11,4 +11,5 @@ package com.metrodata.tas.entities;
  */
 public class getId {
     public static String id;
+    public static int divId;
 }

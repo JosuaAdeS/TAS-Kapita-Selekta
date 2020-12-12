@@ -5,6 +5,8 @@
  */
 package com.metrodata.tas.repositories;
 import com.metrodata.tas.entities.Laporan;
+import com.metrodata.tas.entities.Divisi;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,5 +16,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface LaporanRespository extends JpaRepository<Laporan, Integer> {
-    
+    List<Laporan> findByDivisi_Id(int id);
 }

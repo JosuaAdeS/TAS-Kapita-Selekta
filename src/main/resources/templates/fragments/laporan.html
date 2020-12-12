@@ -53,7 +53,7 @@
                                 </td>
                             </tr>
                             
-                                    <select class='form-control' name="divisi" id="division">
+                            <select class='form-control' name="divisi" id="division" hidden="true">
                                         <option value="" disabled selected>Divisi</option>
                                         <option th:each="division : ${divisies}" th:value="${division.id}" th:text="${division.namaDivisi}"> </option>
                                     </select>

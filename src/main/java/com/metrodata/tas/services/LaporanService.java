@@ -58,4 +58,8 @@ public class LaporanService {
     public Laporan getById(int id){
         return repository.findById(id).get();
     }
+    
+    public List<Laporan> findByDivisi(int id){
+        return (List<Laporan>) repository.findByDivisi_Id(id);
+    }
 }

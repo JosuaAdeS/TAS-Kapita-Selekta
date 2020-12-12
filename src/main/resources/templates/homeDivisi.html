@@ -62,7 +62,7 @@ and open the template in the editor.
                                        th:data-status="${as.currentStatus.id}"
                                        th:data-division="${as.divisi.id}"
                                        th:data-deskripsistatus="${as.deskripsiStatus}"
-                                    >
+                                       >
                                         Update
                                     </a>
                                 </td>
@@ -82,22 +82,30 @@ and open the template in the editor.
     <script>
         $(document).on("click", ".edit-modal", function () {
 
-                var id = $(this).data('id');
-                var judulLaporan = $(this).data('judullaporan');
-                var isiLaporan = $(this).data('isilaporan');
-                var tanggalLaporan = $(this).data('tanggallaporan');
-                var status = $(this).data('status');
-                var division = $(this).data('division');
-                var deskripsiStatus = $(this).data('deskripsistatus');
-                
-                $(".modal-body #id").val(id);
-                $(".modal-body #judullaporan").val(judulLaporan);
-                $(".modal-body #isiLaporan").val(isiLaporan);
-                $(".modal-body #tanggalLaporan").val(tanggalLaporan);
-                $(".modal-body #status").val(status);
-                $(".modal-body #division").val(division);
-                $(".modal-body #deskripsiStatus").val(deskripsiStatus);
-            });
+            var id = $(this).data('id');
+            var judulLaporan = $(this).data('judullaporan');
+            var isiLaporan = $(this).data('isilaporan');
+            var tanggalLaporan = $(this).data('tanggallaporan');
+            var status = $(this).data('status');
+            var division = $(this).data('division');
+            var deskripsiStatus = $(this).data('deskripsistatus');
+
+            $(".modal-body #id").val(id);
+            $(".modal-body #judullaporan").val(judulLaporan);
+            $(".modal-body #isiLaporan").val(isiLaporan);
+            $(".modal-body #tanggalLaporan").val(tanggalLaporan);
+            $(".modal-body #status").val(status);
+            $(".modal-body #division").val(division);
+            $(".modal-body #deskripsiStatus").val(deskripsiStatus);
+
+            if ($('#status').val() == 2) {
+                $('#status').prop("disabled", "disabled");
+            } else if ($('#status').val() == 4) {
+                $('#status').prop("disabled", "disabled");
+            } else {
+                $('#status').prop("disabled", false);
+            }
+        });
     </script>
 </body>
 </html>
