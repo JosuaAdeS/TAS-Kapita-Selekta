@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package com.metrodata.tas.repositories;
-import com.metrodata.tas.entities.Laporan;
+
+import com.metrodata.tas.entities.Status;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author acer
  */
 @Repository
-public interface LaporanRespository extends JpaRepository<Laporan, Integer> {
+public interface StatusRepository extends JpaRepository<Status, Integer> {
     
 }

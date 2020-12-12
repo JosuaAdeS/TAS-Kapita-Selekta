@@ -11,6 +11,8 @@ import com.metrodata.tas.entities.Laporan;
 import com.metrodata.tas.entities.LaporanInput;
 import com.metrodata.tas.entities.Status;
 import com.metrodata.tas.entities.User;
+import com.metrodata.tas.repositories.DivisiRespository;
+import com.metrodata.tas.repositories.StatusRepository;
 import com.metrodata.tas.services.GetRestService;
 import com.metrodata.tas.services.LaporanService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,12 @@ public class HomeUser {
 
     @Autowired
     LaporanService lapService;
+    
+    @Autowired
+    StatusRepository statusRepository;
+    
+    @Autowired
+    DivisiRespository divisiRespository;
 
     @GetMapping("/home")
     public String homeUser(Model model) {
@@ -43,6 +51,9 @@ public class HomeUser {
         getService.getProfileBasic(getId.id);
         if (user.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"))) {
             model.addAttribute("laporan", lapService.getAll());
+            model.addAttribute("statuses", statusRepository.findAll());
+            model.addAttribute("divisies", divisiRespository.findAll());
+            model.addAttribute("userid", getId.id);
             model.addAttribute("divisi", new Divisi());
             model.addAttribute("status", new Status());
             return "homeDivisi";
@@ -61,15 +72,5 @@ public class HomeUser {
         return "history";
     }
 
-    @PostMapping("savelaporan")
-    public String saveLaporan(LaporanInput input, Divisi divisi, Status currentStatus) {
-        lapService.saveLaporan(input, divisi, currentStatus);
-        return "redirect:/home";
-    }
     
-    @RequestMapping(value = "update/{id}", method = {RequestMethod.GET, RequestMethod.POST})
-    public String update(Model model, @PathVariable("id") String id) {
-        model.addAttribute("person", lapService.getById(id));
-        return "personUpdate";
-    }
 }

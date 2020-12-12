@@ -41,11 +41,21 @@ public class LaporanService {
         }
     }
     
+    public boolean updateLaporan(Laporan input){
+        try {
+            repository.save(input);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+    
     public List<Laporan> getAll(){
         return repository.findAll();
     }
     
-    public Laporan getById(String id){
+    public Laporan getById(int id){
         return repository.findById(id).get();
     }
 }
