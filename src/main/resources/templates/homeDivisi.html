@@ -38,20 +38,20 @@ and open the template in the editor.
                     <table border="0" class="table table-striped" id="myTable"> 
                         <thead class="thead-white">
                             <tr>
-                                <th>Username</th>
+                                <th>ID</th>
                                 <th>Judul Laporan</th>
                                 <th>Tanggal</th>
                                 <th>Status</th>
-                                <th></th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
+                            <tr th:each="as : ${laporan}">
+                                <td th:text="${as.id}">ID</td>
+                                <td th:text="${as.judulLaporan}">Judul Laporan</td>
+                                <td th:text="${as.tanggalLaporan}">Tanggal</td>
+                                <td th:text="${as.currentStatus.id}">Status</td>
+                                <td><a th:href="@{updateLaporan/} + ${as.id}" method="REQUEST">Update</a></td>
                             </tr>
                             <!-- not yet -->
                         </tbody>

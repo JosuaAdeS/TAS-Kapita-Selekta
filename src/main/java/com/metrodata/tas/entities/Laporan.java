@@ -5,12 +5,17 @@
  */
 package com.metrodata.tas.entities;
 
+import com.metrodata.tas.entities.Divisi;
+import com.metrodata.tas.entities.Status;
+import com.metrodata.tas.entities.User;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -39,9 +44,10 @@ public class Laporan implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private String id;
+    private Integer id;
     @Basic(optional = false)
     @Column(name = "judul_laporan")
     private String judulLaporan;
@@ -67,18 +73,18 @@ public class Laporan implements Serializable {
     public Laporan() {
     }
 
-    public Laporan(String id) {
+    public Laporan(Integer id) {
         this.id = id;
     }
 
-    public Laporan(String id, String judulLaporan, String isiLaporan, Date tanggalLaporan) {
+    public Laporan(Integer id, String judulLaporan, String isiLaporan, Date tanggalLaporan) {
         this.id = id;
         this.judulLaporan = judulLaporan;
         this.isiLaporan = isiLaporan;
         this.tanggalLaporan = tanggalLaporan;
     }
 
-    public Laporan(String id, String judulLaporan, String isiLaporan, Date tanggalLaporan, String deskripsiStatus, Status currentStatus, Divisi divisi, User user) {
+    public Laporan(Integer id, String judulLaporan, String isiLaporan, Date tanggalLaporan, String deskripsiStatus, Status currentStatus, Divisi divisi, User user) {
         this.id = id;
         this.judulLaporan = judulLaporan;
         this.isiLaporan = isiLaporan;
@@ -89,11 +95,13 @@ public class Laporan implements Serializable {
         this.user = user;
     }
     
-    public String getId() {
+    
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -175,7 +183,7 @@ public class Laporan implements Serializable {
 
     @Override
     public String toString() {
-        return "com.metrodata.tas.entities.Laporan[ id=" + id + " ]";
+        return "com.metrodata.tas.entities.rest.Laporan[ id=" + id + " ]";
     }
     
 }

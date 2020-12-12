@@ -14,10 +14,15 @@ import com.metrodata.tas.entities.User;
 import com.metrodata.tas.services.GetRestService;
 import com.metrodata.tas.services.LaporanService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
@@ -25,30 +30,46 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 @Controller
 public class HomeUser {
+
     @Autowired
     GetRestService getService;
-    
+
     @Autowired
     LaporanService lapService;
-    
+
     @GetMapping("/home")
-    public String homeUser(Model model){
+    public String homeUser(Model model) {
+        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         getService.getProfileBasic(getId.id);
-        model.addAttribute("basic", getService.getProfileBasic(getId.id));
-        model.addAttribute("input", new LaporanInput());
-        model.addAttribute("divisi", new Divisi());
-        model.addAttribute("status", new Status());
-        return "home";
+        if (user.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"))) {
+            model.addAttribute("laporan", lapService.getAll());
+            model.addAttribute("divisi", new Divisi());
+            model.addAttribute("status", new Status());
+            return "homeDivisi";
+        } else if (user.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ROLE_LEARNER"))) {
+            model.addAttribute("basic", getService.getProfileBasic(getId.id));
+            model.addAttribute("input", new LaporanInput());
+            model.addAttribute("divisi", new Divisi());
+            model.addAttribute("status", new Status());
+            return "home";
+        }
+        return "";
     }
-    
+
     @GetMapping("/history")
-    public String historyUser(){
+    public String historyUser() {
         return "history";
     }
-    
+
     @PostMapping("savelaporan")
-    public String saveLaporan(LaporanInput input, Divisi divisi, Status currentStatus){
+    public String saveLaporan(LaporanInput input, Divisi divisi, Status currentStatus) {
         lapService.saveLaporan(input, divisi, currentStatus);
-        return "redirect:/";
+        return "redirect:/home";
+    }
+    
+    @RequestMapping(value = "update/{id}", method = {RequestMethod.GET, RequestMethod.POST})
+    public String update(Model model, @PathVariable("id") String id) {
+        model.addAttribute("person", lapService.getById(id));
+        return "personUpdate";
     }
 }

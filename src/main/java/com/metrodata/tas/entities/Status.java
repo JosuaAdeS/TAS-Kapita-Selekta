@@ -6,19 +6,14 @@
 package com.metrodata.tas.entities;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -41,8 +36,6 @@ public class Status implements Serializable {
     @Basic(optional = false)
     @Column(name = "status")
     private String status;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "currentStatus", fetch = FetchType.LAZY)
-    private List<Laporan> laporanList;
 
     public Status() {
     }
@@ -70,15 +63,6 @@ public class Status implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    @XmlTransient
-    public List<Laporan> getLaporanList() {
-        return laporanList;
-    }
-
-    public void setLaporanList(List<Laporan> laporanList) {
-        this.laporanList = laporanList;
     }
 
     @Override

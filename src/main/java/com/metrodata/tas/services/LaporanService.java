@@ -13,6 +13,7 @@ import com.metrodata.tas.entities.User;
 import com.metrodata.tas.entities.getId;
 import com.metrodata.tas.repositories.LaporanRespository;
 import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,12 +32,20 @@ public class LaporanService {
             Divisi div = new Divisi(divisi.getId());
             User user = new User(getId.id);
             
-            Laporan lap = new Laporan("LAP0005", input.getJudulLaporan(), input.getIsiLaporan(), new Date(), input.getDeskripsiStatus(), currentStatus, divisi, user);
+            Laporan lap = new Laporan(null, input.getJudulLaporan(), input.getIsiLaporan(), new Date(), input.getDeskripsiStatus(), currentStatus, divisi, user);
             repository.save(lap);
             return true;
         } catch (Exception e) {
             System.out.println(e);
             return false;
         }
+    }
+    
+    public List<Laporan> getAll(){
+        return repository.findAll();
+    }
+    
+    public Laporan getById(String id){
+        return repository.findById(id).get();
     }
 }
