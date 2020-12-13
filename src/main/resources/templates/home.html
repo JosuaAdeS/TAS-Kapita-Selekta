@@ -9,10 +9,15 @@ and open the template in the editor.
         <title> Home </title>
         <script src="https://kit.fontawesome.com/2d819bcdec.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <style>
+            body{
+                font-family: 'Roboto', sans-serif;
+            }
             .ml-30{
                 margin-left:30px;
             }
@@ -22,39 +27,40 @@ and open the template in the editor.
         </style>
     </head>
     <body class="col-lg-12" style="background-color:white">
-        <div th:replace="fragments/user::header"></div>
+        <div th:replace="fragments/user::header-home"></div>
     <center>
 
-        <div style='text-align: left;padding-top: 5%;'>
+        <div style='text-align: center;padding-top: 6%;'>
             <font class='h2'> <strong> Pelaporan Masalah Metrodata </strong> </font>
+            <h5>Sampaikan masalah anda langsung kepada divisi yang bersangkutan</h5>
         </div>
         <div class="row">
-            <div class="container pt-4">
-                <div class="col-7 shadow pt-3 pb-5 br-15 mt-4 mb-5 pr-5 p-5" style="background-color: white">
+            <div class="container pt-10">
+                <div class="col-7 shadow pt-3 pb-5 br-15 mt-4 mb-5 pr-5 p-5" style="background-color: white"> 
                     <div>
                     </div>
-                    <p>Silahkan isi Form berikut :</p>
+                    <h4><strong>Silahkan Isikan Laporan Anda</strong></h4>
                     <!---->
-                    <form th:action="@{savelaporan}" method="POST" id="laporan">
+                    <form th:action="@{savelaporan}" method="POST">
                         <div class="pr-4">
                             <table cellpadding="10">
                                 <tr>
                                     <td> 
-                                        <input type="text" id="judulLaporan" class='form-control' placeholder="Masukkan Judul Laporan" name="judulLaporan"/> 
+                                        <input type="text" id="judulLaporan" class='form-control' placeholder="Masukkan Judul Laporan*" name="judulLaporan"/> 
                                         <input type="text" id="tanggalLaporan" hidden="true" value="2000/12/13" name="tanggalLaporan"/> 
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <select class='form-control' name="divisi" id="division">
-                                            <option value="" disabled selected>Pilih Divisi Tujuan</option>
+                                            <option value="" disabled selected>Pilih Divisi Tujuan*</option>
                                             <option th:each="division : ${divisies}" th:value="${division.id}" th:text="${division.namaDivisi}"> </option>
                                         </select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td> 
-                                        <textarea rows="4" cols="50" id="isiLaporan" name="isiLaporan" class='form-control' style="resize: none"></textarea>
+                                        <textarea rows="4" cols="50" id="isiLaporan" name="isiLaporan" class='form-control' style="resize: none" placeholder="Masukan isi laporan anda*"></textarea>
                                     </td>
                                 </tr>
                                 <tr>
@@ -66,14 +72,14 @@ and open the template in the editor.
                             </tr>
 
                             </table>
-                            <input type="submit" name="send" value="Kirim Laporan" class="btn btn-primary pl-5 pr-5 mt-4">
+                            <input style="width:75%" type="submit" name="send" value="Kirim Laporan" class="btn btn-primary pl-5 pr-5 mt-4">
                         </div>
-
                     </form>
                 </div>
             </div>
         </div>
     </center>
     <div th:replace="fragments/user::footer"></div>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
