@@ -64,6 +64,7 @@ public class HomeUser {
             model.addAttribute("laporan", lapService.findByDivisi(id));
             model.addAttribute("statuses", statusRepository.findAll());
             model.addAttribute("divisies", divisiRespository.findAll());
+            model.addAttribute("nama", userRepository.findById(getId.idAdmin).get().getNama());
             return "homeDivisi";
         } else if (user.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ROLE_LEARNER"))) {
             model.addAttribute("basic", getService.getProfileBasic(getId.id));

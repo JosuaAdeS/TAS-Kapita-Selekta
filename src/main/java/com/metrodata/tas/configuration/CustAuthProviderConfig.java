@@ -28,7 +28,16 @@ public class CustAuthProviderConfig extends WebSecurityConfigurerAdapter {
  
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/registrasi").permitAll().antMatchers("/save").permitAll().antMatchers("home").hasRole("Admin").anyRequest().authenticated()
+        http.authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers("/registrasi").permitAll()
+                .antMatchers("/save").permitAll()
+                .antMatchers("home").hasRole("Admin")
+                .antMatchers("/css/**").permitAll()
+                .antMatchers("/js/**").permitAll()
+                .antMatchers("/scss/**").permitAll()
+                .antMatchers("/assets/**").permitAll()
+                .anyRequest().authenticated()
             .and().httpBasic().and().formLogin().loginPage("/").loginProcessingUrl("/loginProcess").defaultSuccessUrl("/home",true)
             .and().logout().logoutUrl("/logout").logoutSuccessUrl("/");
     
