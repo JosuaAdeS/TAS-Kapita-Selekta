@@ -14,6 +14,7 @@ import com.metrodata.tas.repositories.DeskripsiTrackingRepository;
 import com.metrodata.tas.repositories.DivisiRespository;
 import com.metrodata.tas.repositories.StatusRepository;
 import com.metrodata.tas.repositories.UserRepository;
+import com.metrodata.tas.services.EmailService;
 import com.metrodata.tas.services.GetRestService;
 import com.metrodata.tas.services.LaporanService;
 import com.metrodata.tas.services.TrackingService;
@@ -55,6 +56,7 @@ public class HomeUser {
     
     @Autowired
     DeskripsiTrackingRepository deskripsiTrackingRepository;
+    
 
     @GetMapping("/home")
     public String homeUser(Model model, Divisi d) {

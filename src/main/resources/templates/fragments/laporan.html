@@ -25,14 +25,14 @@
                             <tr>
                                 <td>Judul Laporan</td>
                                 <td>:</td>
-                                <td><input type="text" id="judullaporan" name="judulLaporan"/></td>
+                                <td><input type="text" id="judullaporan" name="judulLaporan" readonly="true"/></td>
                             </tr>
 
                             <tr>
                                 <td>Isi Laporan</td>
                                 <td>:</td>
                                 <td>
-                                    <textarea rows="4" cols="50" id="isiLaporan" name="isiLaporan" class='form-control' style="resize: none"></textarea>
+                                    <textarea rows="4" cols="50" id="isiLaporan" name="isiLaporan" class='form-control' style="resize: none" readonly="true"></textarea>
                                 </td>
                             </tr>
 
@@ -58,7 +58,7 @@
                                 <option th:each="division : ${divisies}" th:value="${division.id}" th:text="${division.namaDivisi}"> </option>
                             </select>
                             
-                            <input type="text" id="person" name="user"/>
+                            <input type="text" id="person" name="user" hidden="true"/>
                                 
 
                             <tr>
