@@ -37,7 +37,7 @@ and open the template in the editor.
                     <table border="0" class="table table-striped" id="myTable"> 
                         <thead class="thead-dark">
                             <tr>
-                                <th>ID</th>
+                                <th>Nama Pengirim</th>
                                 <th>Judul Laporan</th>
                                 <th>Tanggal</th>
                                 <th>Status</th>
@@ -46,10 +46,10 @@ and open the template in the editor.
                         </thead>
                         <tbody>
                             <tr th:each="as : ${laporan}">
-                                <td th:text="${as.id}">ID</td>
-                                <td th:text="${as.judulLaporan}">Judul Laporan</td>
-                                <td th:text="${as.tanggalLaporan}">Tanggal</td>
-                                <td th:text="${as.currentStatus.id}">Status</td>
+                                <td th:text="${as.user.nama}"></td>
+                                <td th:text="${as.judulLaporan}"></td>
+                                <td th:text="${as.tanggalLaporan}"></td>
+                                <td th:text="${as.currentStatus.id}"></td>
                                 <td>
                                     <a type="button" 
                                        class="btn btn-primary edit-modal text-light" 
@@ -60,6 +60,7 @@ and open the template in the editor.
                                        th:data-isilaporan="${as.isiLaporan}"
                                        th:data-tanggallaporan="${as.tanggalLaporan}"
                                        th:data-status="${as.currentStatus.id}"
+                                       th:data-person="${as.user.id}"
                                        th:data-division="${as.divisi.id}"
                                        th:data-deskripsistatus="${as.deskripsiStatus}"
                                        >
@@ -87,6 +88,7 @@ and open the template in the editor.
             var isiLaporan = $(this).data('isilaporan');
             var tanggalLaporan = $(this).data('tanggallaporan');
             var status = $(this).data('status');
+            var person = $(this).data('person');
             var division = $(this).data('division');
             var deskripsiStatus = $(this).data('deskripsistatus');
 
@@ -95,6 +97,7 @@ and open the template in the editor.
             $(".modal-body #isiLaporan").val(isiLaporan);
             $(".modal-body #tanggalLaporan").val(tanggalLaporan);
             $(".modal-body #status").val(status);
+            $(".modal-body #person").val(person);
             $(".modal-body #division").val(division);
             $(".modal-body #deskripsiStatus").val(deskripsiStatus);
 

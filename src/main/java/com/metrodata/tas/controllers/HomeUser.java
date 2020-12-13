@@ -64,7 +64,6 @@ public class HomeUser {
             model.addAttribute("laporan", lapService.findByDivisi(id));
             model.addAttribute("statuses", statusRepository.findAll());
             model.addAttribute("divisies", divisiRespository.findAll());
-            model.addAttribute("userid", lapService.getById(12).getUser().getId());
             return "homeDivisi";
         } else if (user.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ROLE_LEARNER"))) {
             model.addAttribute("basic", getService.getProfileBasic(getId.id));
@@ -83,7 +82,7 @@ public class HomeUser {
     }
     
     @RequestMapping(value = "tracking/{id}", method = {RequestMethod.GET, RequestMethod.POST})
-    public String update(Model model, @PathVariable("id") int id) {
+    public String tracking(Model model, @PathVariable("id") int id) {
         model.addAttribute("tracking", trackingService.findByLaporan(id));
         return "tracking";
     }
