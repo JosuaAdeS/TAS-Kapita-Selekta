@@ -30,24 +30,14 @@
                     <table border="0" class="table table-striped" id="myTable"> 
                         <thead class="thead-dark">
                             <tr>
-                                <th>ID</th>
-                                <th>Judul Laporan</th>
-                                <th>Tanggal</th>
-                                <th>Status</th>
-                                <th>Action</th>
+                                <th>Waktu</th>
+                                <th>Deskripsi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="as : ${laporan}">
-                                <td th:text="${as.id}">ID</td>
-                                <td th:text="${as.judulLaporan}">Judul Laporan</td>
-                                <td th:text="${as.tanggalLaporan}">Tanggal</td>
-                                <td th:text="${as.currentStatus.id}">Status</td>
-                                <td>
-                                    <a type="button" class="btn btn-primary text-light" th:href="@{tracking/} + ${as.id}" method="REQUEST">
-                                        Tracking
-                                    </a>
-                                </td>
+                            <tr th:each="as : ${tracking}">
+                                <td th:text="${as.waktu}"></td>
+                                <td th:text="${as.deskripsi.deskripsiTracking}"></td>
                             </tr>
                             <!-- not yet -->
                         </tbody>

@@ -5,12 +5,11 @@
  */
 package com.metrodata.tas.entities;
 
-import com.metrodata.tas.entities.Divisi;
-import com.metrodata.tas.entities.Status;
-import com.metrodata.tas.entities.User;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,10 +20,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -60,6 +61,8 @@ public class Laporan implements Serializable {
     private Date tanggalLaporan;
     @Column(name = "deskripsi_status")
     private String deskripsiStatus;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "laporan", fetch = FetchType.LAZY)
+    private List<Tracking> trackingList;
     @JoinColumn(name = "current_status", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Status currentStatus;
@@ -83,19 +86,6 @@ public class Laporan implements Serializable {
         this.isiLaporan = isiLaporan;
         this.tanggalLaporan = tanggalLaporan;
     }
-
-    public Laporan(Integer id, String judulLaporan, String isiLaporan, Date tanggalLaporan, String deskripsiStatus, Status currentStatus, Divisi divisi, User user) {
-        this.id = id;
-        this.judulLaporan = judulLaporan;
-        this.isiLaporan = isiLaporan;
-        this.tanggalLaporan = tanggalLaporan;
-        this.deskripsiStatus = deskripsiStatus;
-        this.currentStatus = currentStatus;
-        this.divisi = divisi;
-        this.user = user;
-    }
-    
-    
 
     public Integer getId() {
         return id;
@@ -135,6 +125,15 @@ public class Laporan implements Serializable {
 
     public void setDeskripsiStatus(String deskripsiStatus) {
         this.deskripsiStatus = deskripsiStatus;
+    }
+
+    @XmlTransient
+    public List<Tracking> getTrackingList() {
+        return trackingList;
+    }
+
+    public void setTrackingList(List<Tracking> trackingList) {
+        this.trackingList = trackingList;
     }
 
     public Status getCurrentStatus() {
@@ -183,7 +182,7 @@ public class Laporan implements Serializable {
 
     @Override
     public String toString() {
-        return "com.metrodata.tas.entities.rest.Laporan[ id=" + id + " ]";
+        return "com.metrodata.tas.entities.Laporan[ id=" + id + " ]";
     }
     
 }

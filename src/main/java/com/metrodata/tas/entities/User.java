@@ -6,7 +6,9 @@
 package com.metrodata.tas.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,8 +17,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -46,6 +50,8 @@ public class User implements Serializable {
     @JoinColumn(name = "divisi", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Divisi divisi;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Laporan> laporanList;
 
     public User() {
     }
@@ -90,6 +96,15 @@ public class User implements Serializable {
 
     public void setDivisi(Divisi divisi) {
         this.divisi = divisi;
+    }
+
+    @XmlTransient
+    public List<Laporan> getLaporanList() {
+        return laporanList;
+    }
+
+    public void setLaporanList(List<Laporan> laporanList) {
+        this.laporanList = laporanList;
     }
 
     @Override

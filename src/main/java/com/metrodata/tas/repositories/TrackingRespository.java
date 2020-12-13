@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 package com.metrodata.tas.repositories;
-import com.metrodata.tas.entities.Laporan;
-import com.metrodata.tas.entities.Divisi;
+
+import com.metrodata.tas.entities.Tracking;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Repository;
  * @author acer
  */
 @Repository
-public interface LaporanRespository extends JpaRepository<Laporan, Integer> {
-    List<Laporan> findByDivisi_Id(int id);
-    List<Laporan> findByUser_Id(String id);
+public interface TrackingRespository extends JpaRepository<Tracking, Integer>{
+        List<Tracking> findByLaporan_Id(int id);
 }

@@ -10,6 +10,7 @@ package com.metrodata.tas.entities;
  * @author acer
  */
 public class getId {
-    public static String id;
     public static int divId;
+    public static String id;
+    public static String idAdmin;
 }

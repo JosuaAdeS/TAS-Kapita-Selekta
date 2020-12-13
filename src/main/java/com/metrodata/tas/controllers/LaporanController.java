@@ -6,7 +6,6 @@
 package com.metrodata.tas.controllers;
 
 import com.metrodata.tas.entities.Divisi;
-import com.metrodata.tas.entities.LaporanInput;
 import com.metrodata.tas.entities.Status;
 import com.metrodata.tas.entities.Laporan;
 import com.metrodata.tas.services.LaporanService;
@@ -29,8 +28,8 @@ public class LaporanController {
     LaporanService lapService;
     
     @PostMapping("savelaporan")
-    public String saveLaporan(LaporanInput input, Divisi divisi, Status currentStatus) {
-        lapService.saveLaporan(input, divisi, currentStatus);
+    public String saveLaporan(Laporan input) {
+        lapService.saveLaporan(input);
         return "redirect:/home";
     }
     

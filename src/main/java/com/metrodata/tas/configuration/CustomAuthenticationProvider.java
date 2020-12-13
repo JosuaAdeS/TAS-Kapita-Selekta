@@ -48,13 +48,14 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             final List<GrantedAuthority> grantedAuths = new ArrayList<>();
             if (loginOut.getUser().getRoles().size() > 1) {
                 grantedAuths.add(new SimpleGrantedAuthority(loginOut.getUser().getRoles().get(1)));
+                getId.idAdmin = loginOut.getUser().getId();
             } else {
                 grantedAuths.add(new SimpleGrantedAuthority(loginOut.getUser().getRoles().get(0)));
+                getId.id = loginOut.getUser().getId();
             }
             final UserDetails principal = new User(name, password, grantedAuths);
             final Authentication auth = new UsernamePasswordAuthenticationToken(principal, password, grantedAuths);
 
-            getId.id = loginOut.getUser().getId();
             if (service.getById(loginOut.getUser().getId())) {
                 System.out.println("Sudah pernah login sebelumnya");
             } else {

@@ -12,6 +12,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -25,37 +27,36 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author acer
  */
 @Entity
-@Table(name = "divisi")
+@Table(name = "deskripsi_tracking")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Divisi.findAll", query = "SELECT d FROM Divisi d")
-    , @NamedQuery(name = "Divisi.findById", query = "SELECT d FROM Divisi d WHERE d.id = :id")
-    , @NamedQuery(name = "Divisi.findByNamaDivisi", query = "SELECT d FROM Divisi d WHERE d.namaDivisi = :namaDivisi")})
-public class Divisi implements Serializable {
+    @NamedQuery(name = "DeskripsiTracking.findAll", query = "SELECT d FROM DeskripsiTracking d")
+    , @NamedQuery(name = "DeskripsiTracking.findById", query = "SELECT d FROM DeskripsiTracking d WHERE d.id = :id")
+    , @NamedQuery(name = "DeskripsiTracking.findByDeskripsiTracking", query = "SELECT d FROM DeskripsiTracking d WHERE d.deskripsiTracking = :deskripsiTracking")})
+public class DeskripsiTracking implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "nama_divisi")
-    private String namaDivisi;
-    @OneToMany(mappedBy = "divisi", fetch = FetchType.LAZY)
-    private List<User> userList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "divisi", fetch = FetchType.LAZY)
-    private List<Laporan> laporanList;
+    @Column(name = "deskripsi_tracking")
+    private String deskripsiTracking;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "deskripsi", fetch = FetchType.LAZY)
+    private List<Tracking> trackingList;
 
-    public Divisi() {
+    public DeskripsiTracking() {
     }
 
-    public Divisi(Integer id) {
+    public DeskripsiTracking(Integer id) {
         this.id = id;
     }
 
-    public Divisi(Integer id, String namaDivisi) {
+    public DeskripsiTracking(Integer id, String deskripsiTracking) {
         this.id = id;
-        this.namaDivisi = namaDivisi;
+        this.deskripsiTracking = deskripsiTracking;
     }
 
     public Integer getId() {
@@ -66,30 +67,21 @@ public class Divisi implements Serializable {
         this.id = id;
     }
 
-    public String getNamaDivisi() {
-        return namaDivisi;
+    public String getDeskripsiTracking() {
+        return deskripsiTracking;
     }
 
-    public void setNamaDivisi(String namaDivisi) {
-        this.namaDivisi = namaDivisi;
-    }
-
-    @XmlTransient
-    public List<User> getUserList() {
-        return userList;
-    }
-
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
+    public void setDeskripsiTracking(String deskripsiTracking) {
+        this.deskripsiTracking = deskripsiTracking;
     }
 
     @XmlTransient
-    public List<Laporan> getLaporanList() {
-        return laporanList;
+    public List<Tracking> getTrackingList() {
+        return trackingList;
     }
 
-    public void setLaporanList(List<Laporan> laporanList) {
-        this.laporanList = laporanList;
+    public void setTrackingList(List<Tracking> trackingList) {
+        this.trackingList = trackingList;
     }
 
     @Override
@@ -102,10 +94,10 @@ public class Divisi implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Divisi)) {
+        if (!(object instanceof DeskripsiTracking)) {
             return false;
         }
-        Divisi other = (Divisi) object;
+        DeskripsiTracking other = (DeskripsiTracking) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -114,7 +106,7 @@ public class Divisi implements Serializable {
 
     @Override
     public String toString() {
-        return "com.metrodata.tas.entities.Divisi[ id=" + id + " ]";
+        return "com.metrodata.tas.entities.DeskripsiTracking[ id=" + id + " ]";
     }
     
 }

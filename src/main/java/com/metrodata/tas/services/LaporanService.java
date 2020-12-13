@@ -7,11 +7,12 @@ package com.metrodata.tas.services;
 
 import com.metrodata.tas.entities.Divisi;
 import com.metrodata.tas.entities.Laporan;
-import com.metrodata.tas.entities.LaporanInput;
 import com.metrodata.tas.entities.Status;
+import com.metrodata.tas.entities.Tracking;
 import com.metrodata.tas.entities.User;
 import com.metrodata.tas.entities.getId;
 import com.metrodata.tas.repositories.LaporanRespository;
+import com.metrodata.tas.repositories.TrackingRespository;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +27,12 @@ public class LaporanService {
     @Autowired
     LaporanRespository repository;
     
-    public boolean saveLaporan(LaporanInput input, Divisi divisi, Status currentStatus){
+    @Autowired
+    TrackingRespository trackingRespository;
+    
+    public boolean saveLaporan(Laporan input){
         try {
-            Status status = new Status(currentStatus.getId());
-            Divisi div = new Divisi(divisi.getId());
-            User user = new User(getId.id);
-            
-            Laporan lap = new Laporan(null, input.getJudulLaporan(), input.getIsiLaporan(), new Date(), input.getDeskripsiStatus(), currentStatus, divisi, user);
-            repository.save(lap);
+            repository.save(input);
             return true;
         } catch (Exception e) {
             System.out.println(e);
@@ -62,4 +61,9 @@ public class LaporanService {
     public List<Laporan> findByDivisi(int id){
         return (List<Laporan>) repository.findByDivisi_Id(id);
     }
+    
+    public List<Laporan> findByUser(String id){
+        return (List<Laporan>) repository.findByUser_Id(id);
+    }    
+    
 }
