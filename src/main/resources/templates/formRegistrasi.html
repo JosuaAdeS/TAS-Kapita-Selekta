@@ -35,9 +35,31 @@ and open the template in the editor.
                     <form th:object="${registrasi}" th:action="@{save}" method="POST">
                         <div class="pr-4">
                             <table>
+                                 <tr>
+                                    <td> Name </td>
+                                    <td> <input type="text" placeholder="Write your name ... " class="ml-30 form-control" th:field="*{name}"> </td>
+                                </tr>
                                 <tr>
                                     <td> Birth Date </td>
                                     <td> <input type="date" class="form-control ml-30" th:field="*{birthDate}"> </td>
+                                </tr>
+                                <tr>
+                                    <td> Gender </td>
+                                    <td>
+                                        <select class="form-control ml-30" th:field="*{gender}">
+                                            <option value="Laki-laki"> Laki - laki </option>
+                                            <option value="Perempuan"> Perempuan </option>
+                                        </select>
+                                        <!--                                    <input type="text" class="form-control" > -->
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td> Phone </td>
+                                    <td> <input type="text" placeholder="08*********" class="ml-30 form-control" th:field="*{phone}"> </td>
+                                </tr>
+                                <tr>
+                                    <td> Job </td>
+                                    <td> <input type="text" placeholder="Unknown" class="form-control ml-30" th:field="*{job}"> </td>
                                 </tr>
                                 <tr>
                                     <td> Company </td>
@@ -54,24 +76,6 @@ and open the template in the editor.
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td> Email </td>
-                                    <td> <input type="email" placeholder='kapitaselekta@gmail.com' class="form-control ml-30" th:field="*{email}"> </td>
-                                </tr>
-                                <tr>
-                                    <td> Gender </td>
-                                    <td>
-                                        <select class="form-control ml-30" th:field="*{gender}">
-                                            <option value="Laki-laki"> Laki - laki </option>
-                                            <option value="Perempuan"> Perempuan </option>
-                                        </select>
-                                        <!--                                    <input type="text" class="form-control" > -->
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td> Job </td>
-                                    <td> <input type="text" placeholder="Unknown" class="form-control ml-30" th:field="*{job}"> </td>
-                                </tr>
-                                <tr>
                                     <td> Major </td>
                                     <td> 
                                         <select class="ml-30 form-control" th:field="*{major}">
@@ -79,22 +83,6 @@ and open the template in the editor.
                                         </select>
                                     </td>
                                     <!--<input type="text" class="form-control" th:field="*{major}">-->
-                                </tr>
-                                <tr>
-                                    <td> Name </td>
-                                    <td> <input type="text" placeholder="Write your name ... " class="ml-30 form-control" th:field="*{name}"> </td>
-                                </tr>
-                                <tr>
-                                    <td> Password </td>
-                                    <td> <input type="password" placeholder="***" class="ml-30 form-control" th:field="*{password}"> </td>
-                                </tr>
-                                <tr>
-                                    <td> Phone </td>
-                                    <td> <input type="text" placeholder="0813***8" class="ml-30 form-control" th:field="*{phone}"> </td>
-                                </tr>
-                                <tr>
-                                    <td> Status </td>
-                                    <td> <input type="text" placeholder="Belum Lulus" class="ml-30 form-control" th:field="*{status}"> </td>
                                 </tr>
                                 <tr>
                                     <td> University </td>
@@ -106,12 +94,23 @@ and open the template in the editor.
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td> Username </td>
-                                    <td> <input type="text" placeholder="Username" class="ml-30 form-control" th:field="*{username}"> </td>
+                                    <td> Email </td>
+                                    <td> <input type="email" placeholder='sample@gmail.com' class="form-control ml-30" th:field="*{email}"> </td>
                                 </tr>
-
+                                <tr>
+                                    <td> Status </td>
+                                    <td> <input type="text" placeholder="Belum Lulus" class="ml-30 form-control" th:field="*{status}"> </td>
+                                </tr>
+                                <tr>
+                                    <td> Username </td>
+                                    <td> <input type="text" placeholder="Input Username" class="ml-30 form-control" th:field="*{username}"> </td>
+                                </tr>
+                                <tr>
+                                    <td> Password </td>
+                                    <td> <input type="password" placeholder="Enter Password" class="ml-30 form-control" th:field="*{password}"> </td>
+                                </tr>
                             </table>
-                            <input type="submit" name="save" value="Register" class="btn btn-primary pl-5 pr-5 mt-4">
+                            <input style="text-align:center"  type="submit" name="save" value="Register" class="btn btn-primary pl-5 pr-5 mt-4">
                         </div>
 
                     </form>
