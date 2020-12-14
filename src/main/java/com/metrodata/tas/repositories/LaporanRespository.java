@@ -18,4 +18,5 @@ import org.springframework.stereotype.Repository;
 public interface LaporanRespository extends JpaRepository<Laporan, Integer> {
     List<Laporan> findByDivisi_Id(int id);
     List<Laporan> findByUser_Id(String id);
+    List<Laporan> findByDivisi_IdAndCurrentStatus_Id(int id, int status);
 }

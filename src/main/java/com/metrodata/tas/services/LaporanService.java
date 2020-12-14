@@ -69,6 +69,10 @@ public class LaporanService {
         return (List<Laporan>) repository.findByUser_Id(id);
     }    
     
+    public List<Laporan> findByDivisiAndStatus(int divisi,int status){
+        return (List<Laporan>) repository.findByDivisi_IdAndCurrentStatus_Id(divisi, status);
+    }    
+    
     public List<User> findByEmail(String email){
         return (List<User>) userRepository.findByEmail(email);
     }    

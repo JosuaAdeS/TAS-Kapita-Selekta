@@ -61,7 +61,7 @@ public class HomeUser {
     public String currentId = null;
     
     @GetMapping("/home")
-    public String homeUser(Model model, Divisi d, Principal principal) {
+    public String homeUser(Model model, Principal principal) {
         
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         
@@ -71,11 +71,14 @@ public class HomeUser {
         
         if (user.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"))) {
             int idDiv = userRepository.findById(currentId).get().getDivisi().getId();
-            
             model.addAttribute("laporan", lapService.findByDivisi(idDiv));
             model.addAttribute("statuses", statusRepository.findAll());
             model.addAttribute("divisies", divisiRespository.findAll());
             model.addAttribute("nama", userRepository.findById(currentId).get().getNama());
+            model.addAttribute("pending", lapService.findByDivisiAndStatus(idDiv, 1).size());
+            model.addAttribute("finish", lapService.findByDivisiAndStatus(idDiv, 4).size());
+            model.addAttribute("onprogress", lapService.findByDivisiAndStatus(idDiv, 3).size());
+            model.addAttribute("total", lapService.findByDivisi(idDiv).size());
             return "homeDivisi";
         } else if (user.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ROLE_LEARNER"))) {
             model.addAttribute("basic", getService.getProfileBasic(currentId));
@@ -89,6 +92,53 @@ public class HomeUser {
         return "";
     }
 
+    @GetMapping("/divisi/pending")
+    public String homeDivisiPending(Model model, Principal principal) {
+        int idDiv = userRepository.findById(currentId).get().getDivisi().getId();
+        model.addAttribute("laporan", lapService.findByDivisiAndStatus(idDiv, 1));
+        model.addAttribute("statuses", statusRepository.findAll());
+        model.addAttribute("divisies", divisiRespository.findAll());
+        model.addAttribute("nama", userRepository.findById(currentId).get().getNama());
+        
+        return "homeDivisiPending";
+    }
+    
+
+    @GetMapping("/divisi/onprogress")
+    public String homeDivisiOnProgress(Model model, Principal principal) {
+        int idDiv = userRepository.findById(currentId).get().getDivisi().getId();
+        model.addAttribute("laporan", lapService.findByDivisiAndStatus(idDiv, 3));
+        model.addAttribute("statuses", statusRepository.findAll());
+        model.addAttribute("divisies", divisiRespository.findAll());
+        model.addAttribute("nama", userRepository.findById(currentId).get().getNama());
+        
+        return "homeDivisiOnProgress";
+    }
+    
+
+    @GetMapping("/divisi/finish")
+    public String homeDivisiFinish(Model model, Principal principal) {
+        int idDiv = userRepository.findById(currentId).get().getDivisi().getId();
+        model.addAttribute("laporan", lapService.findByDivisiAndStatus(idDiv, 4));
+        model.addAttribute("statuses", statusRepository.findAll());
+        model.addAttribute("divisies", divisiRespository.findAll());
+        model.addAttribute("nama", userRepository.findById(currentId).get().getNama());
+        
+        return "homeDivisiFinish";
+    }
+    
+
+    @GetMapping("/divisi/denied")
+    public String homeDivisiDenied(Model model, Principal principal) {
+        int idDiv = userRepository.findById(currentId).get().getDivisi().getId();
+        model.addAttribute("laporan", lapService.findByDivisiAndStatus(idDiv, 2));
+        model.addAttribute("statuses", statusRepository.findAll());
+        model.addAttribute("divisies", divisiRespository.findAll());
+        model.addAttribute("nama", userRepository.findById(currentId).get().getNama());
+        
+        return "homeDivisiDenied";
+    }
+    
     @GetMapping("/history")
     public String historyUser(Model model) {
         model.addAttribute("laporan", lapService.findByUser(currentId));

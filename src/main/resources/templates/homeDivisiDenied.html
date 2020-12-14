@@ -98,60 +98,10 @@ and open the template in the editor.
                 <main>
                     <div class="container-fluid">
                         <h1 class="mt-4">Dashboard</h1>
-                        <div class="row">
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">
-                                        <span th:text="${total}" class="display-3 font-weight-bold ml-3 mr-3" style="font-family:'Arial'"></span>
-                                        <span style="margin-left:5%;font-size: 18px">Total Laporan</span>
-                                    </div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-info text-white mb-4">
-                                    <div class="card-body">
-                                        <span th:text="${onprogress}" class="display-3 font-weight-bold ml-3 mr-3" style="font-family:'Arial'"></span>
-                                        <span style="margin-left:5%;font-size: 18px">Sedang Diproses</span>
-                                    </div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">
-                                        <span th:text="${finish}" class="display-3 font-weight-bold ml-3 mr-3" style="font-family:'Arial'"></span>
-                                        <span style="margin-left:5%;font-size: 18px">Telah Selesai</span>
-                                    </div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">
-                                        <span th:text="${pending}" class="display-3 font-weight-bold ml-3 mr-3" style="font-family:'Arial'"></span>
-                                        <span style="margin-left:5%;font-size: 18px">Butuh Aksi</span>
-                                    </div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table mr-1"></i>
-                                Laporan Anda
+                                Laporan Ditolak
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -175,9 +125,9 @@ and open the template in the editor.
                                                 <td th:text="${as.currentStatus.id}"></td>
                                                 <td>
                                                     <a type="button" 
-                                                       class="btn btn-primary edit-modal text-light" 
+                                                       class="btn btn-danger edit-modal text-light" 
                                                        data-toggle="modal" 
-                                                       data-target="#modal1"
+                                                       data-target="#modal2"
                                                        th:data-id="${as.id}"
                                                        th:data-judullaporan="${as.judulLaporan}"
                                                        th:data-isilaporan="${as.isiLaporan}"
@@ -187,7 +137,7 @@ and open the template in the editor.
                                                        th:data-division="${as.divisi.id}"
                                                        th:data-deskripsistatus="${as.deskripsiStatus}"
                                                        >
-                                                        Update
+                                                        Detail
                                                     </a>
                                                 </td>
                                             </tr>
@@ -198,7 +148,7 @@ and open the template in the editor.
                             </div>
                         </div>
                     </div>
-                    <div th:replace="fragments/laporan::detailLaporan"></div>
+                    <div th:replace="fragments/laporan::detailLaporan2"></div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">

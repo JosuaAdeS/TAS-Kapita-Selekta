@@ -15,24 +15,32 @@
                 <div class="modal-body">
                     <p></p>
                     <form th:action="@{updatelaporan}" method="POST">
-                        <table width="25%">
+                        <table width="100%" cellpadding="5">
                             <tr>
                                 <td>ID</td>
                                 <td>:</td>
-                                <td><input type="text" id="id" name="id" readonly="true"/></td>
+                                <td><input type="text" id="id" name="id" readonly="true" class="form-control w-50"/></td>
                             </tr>
 
                             <tr>
-                                <td>Judul Laporan</td>
+                                <td>Judul</td>
                                 <td>:</td>
-                                <td><input type="text" id="judullaporan" name="judulLaporan" readonly="true"/></td>
+                                <td><input type="text" id="judullaporan" name="judulLaporan" readonly="true" class="form-control"/></td>
                             </tr>
 
                             <tr>
                                 <td>Isi Laporan</td>
                                 <td>:</td>
                                 <td>
-                                    <textarea rows="4" cols="50" id="isiLaporan" name="isiLaporan" class='form-control' style="resize: none" readonly="true"></textarea>
+                                    <textarea rows="3" cols="50" id="isiLaporan" name="isiLaporan" class='form-control' style="resize: none" readonly="true"></textarea>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Tanggal</td>
+                                <td>:</td>
+                                <td>
+                                    <input type="date" id="tanggalLaporan" name="Laporan" readonly="true" class="form-control w-50"/>
                                 </td>
                             </tr>
 
@@ -57,10 +65,10 @@
                                 
 
                             <tr>
-                                <td>Deskripsi Status</td>
+                                <td>Keterangan</td>
                                 <td>:</td>
                                 <td>
-                                    <textarea rows="4" cols="50" id="deskripsistatus" name="deskripsiStatus" class='form-control' style="resize: none"></textarea>
+                                    <textarea rows="3" cols="50" id="deskripsistatus" name="deskripsiStatus" class='form-control' style="resize: none"></textarea>
                                 </td>
                             </tr>
                             
@@ -77,3 +85,91 @@
     </div>
 
 </div>
+
+<div th:fragment="detailLaporan2">
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Data</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <p></p>
+                    <form th:action="@{updatelaporan}" method="POST">
+                        <table width="100%" cellpadding="5">
+                            <tr>
+                                <td>ID</td>
+                                <td>:</td>
+                                <td><input type="text" id="id" name="id" readonly="true" class="form-control w-50"/></td>
+                            </tr>
+
+                            <tr>
+                                <td>Judul</td>
+                                <td>:</td>
+                                <td><input type="text" id="judullaporan" name="judulLaporan" readonly="true" class="form-control"/></td>
+                            </tr>
+
+                            <tr>
+                                <td>Isi Laporan</td>
+                                <td>:</td>
+                                <td>
+                                    <textarea rows="3" cols="50" id="isiLaporan" name="isiLaporan" class='form-control' style="resize: none" readonly="true"></textarea>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Tanggal</td>
+                                <td>:</td>
+                                <td>
+                                    <input type="date" id="tanggalLaporan" name="Laporan" readonly="true" class="form-control w-50"/>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>Status</td>
+                                <td>:</td>
+                                <td>
+                                    <select class='form-control' name="currentStatus" id="status">
+                                        <option value="" disabled selected>Status Laporan</option>
+                                        <option th:each="status : ${statuses}" th:value="${status.id}" th:text="${status.status}"> Pending </option>
+                                    </select>
+                                </td>
+                            </tr>
+                            
+                            <select class='form-control' name="divisi" id="division" hidden="true">
+                                <option value="" disabled selected>Divisi</option>
+                                <option th:each="division : ${divisies}" th:value="${division.id}" th:text="${division.namaDivisi}"> </option>
+                            </select>
+                            
+                            <input type="text" id="person" name="user" hidden="true"/>
+                                
+
+                            <tr>
+                                <td>Keterangan</td>
+                                <td>:</td>
+                                <td>
+                                    <textarea rows="3" cols="50" id="deskripsistatus" name="deskripsiStatus" readonly="true" class='form-control' style="resize: none"></textarea>
+                                </td>
+                            </tr>
+                            
+                        </table>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
