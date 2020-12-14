@@ -10,6 +10,8 @@ import com.metrodata.tas.entities.Status;
 import com.metrodata.tas.entities.Laporan;
 import com.metrodata.tas.services.EmailService;
 import com.metrodata.tas.services.LaporanService;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,8 +35,12 @@ public class LaporanController {
     EmailService emailService;
 
     @PostMapping("savelaporan")
-    public String saveLaporan(Laporan input) {
-        input.setTanggalLaporan(new Date());
+    public String saveLaporan(Laporan input) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); 
+        Date date = new Date();
+        String newDate = formatter.format(date);
+        Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(newDate);
+        input.setTanggalLaporan(date1);
         lapService.saveLaporan(input);
         if (input.getDivisi().getId() == 1) {
             emailService.sendEmail(
@@ -57,7 +63,12 @@ public class LaporanController {
     }
 
     @PostMapping("updatelaporan")
-    public String updateLaporan(Laporan input) {
+    public String updateLaporan(Laporan input) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); 
+        Date date = new Date();
+        String newDate = formatter.format(date);
+        Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(newDate);
+        input.setTanggalLaporan(date1);
         lapService.updateLaporan(input);
         emailService.sendEmail(
                 input.getUser().getEmail(),
