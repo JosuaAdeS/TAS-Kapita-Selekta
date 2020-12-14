@@ -5,7 +5,6 @@
  */
 package com.metrodata.tas.controllers;
 
-import com.metrodata.tas.entities.getId;
 import com.metrodata.tas.services.LoginRestService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +27,6 @@ public class LoginRestController {
     LoginRestService service;
     @GetMapping("")
     public String index(){
-        getId.id = null;
         return "formLogin";
     }
     

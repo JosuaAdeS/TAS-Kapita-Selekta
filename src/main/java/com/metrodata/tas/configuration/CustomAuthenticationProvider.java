@@ -5,12 +5,12 @@
  */
 package com.metrodata.tas.configuration;
 
-import com.metrodata.tas.entities.getId;
 import com.metrodata.tas.entities.rest.LoginInput;
 import com.metrodata.tas.entities.rest.LoginOutput;
 import com.metrodata.tas.services.LoginRestService;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -48,10 +48,9 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             final List<GrantedAuthority> grantedAuths = new ArrayList<>();
             if (loginOut.getUser().getRoles().size() > 1) {
                 grantedAuths.add(new SimpleGrantedAuthority(loginOut.getUser().getRoles().get(1)));
-                getId.idAdmin = loginOut.getUser().getId();
+                
             } else {
                 grantedAuths.add(new SimpleGrantedAuthority(loginOut.getUser().getRoles().get(0)));
-                getId.id = loginOut.getUser().getId();
             }
             final UserDetails principal = new User(name, password, grantedAuths);
             final Authentication auth = new UsernamePasswordAuthenticationToken(principal, password, grantedAuths);
@@ -67,7 +66,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         }
 
     }
-
+    
     @Override
     public boolean supports(Class<?> authentication) {
 

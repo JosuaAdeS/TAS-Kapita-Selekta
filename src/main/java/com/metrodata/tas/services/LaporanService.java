@@ -10,9 +10,9 @@ import com.metrodata.tas.entities.Laporan;
 import com.metrodata.tas.entities.Status;
 import com.metrodata.tas.entities.Tracking;
 import com.metrodata.tas.entities.User;
-import com.metrodata.tas.entities.getId;
 import com.metrodata.tas.repositories.LaporanRespository;
 import com.metrodata.tas.repositories.TrackingRespository;
+import com.metrodata.tas.repositories.UserRepository;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +29,9 @@ public class LaporanService {
     
     @Autowired
     TrackingRespository trackingRespository;
+    
+    @Autowired
+    UserRepository userRepository;
     
     public boolean saveLaporan(Laporan input){
         try {
@@ -64,6 +67,10 @@ public class LaporanService {
     
     public List<Laporan> findByUser(String id){
         return (List<Laporan>) repository.findByUser_Id(id);
+    }    
+    
+    public List<User> findByEmail(String email){
+        return (List<User>) userRepository.findByEmail(email);
     }    
     
 }

@@ -6,7 +6,6 @@
 package com.metrodata.tas.controllers;
 
 import com.metrodata.tas.entities.Divisi;
-import com.metrodata.tas.entities.getId;
 import com.metrodata.tas.entities.Laporan;
 import com.metrodata.tas.entities.Status;
 import com.metrodata.tas.entities.User;
@@ -18,7 +17,9 @@ import com.metrodata.tas.services.EmailService;
 import com.metrodata.tas.services.GetRestService;
 import com.metrodata.tas.services.LaporanService;
 import com.metrodata.tas.services.TrackingService;
+import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -57,30 +58,39 @@ public class HomeUser {
     @Autowired
     DeskripsiTrackingRepository deskripsiTrackingRepository;
     
-
+    public String currentId = null;
+    
     @GetMapping("/home")
-    public String homeUser(Model model, Divisi d) {
+    public String homeUser(Model model, Divisi d, Principal principal) {
+        
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = principal.getName();
+        String temp = lapService.findByEmail(username).toString();
+        currentId = temp.substring(37, 47);
+        
         if (user.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"))) {
-            int id = userRepository.findById(getId.idAdmin).get().getDivisi().getId();
-            model.addAttribute("laporan", lapService.findByDivisi(id));
+            int idDiv = userRepository.findById(currentId).get().getDivisi().getId();
+            
+            model.addAttribute("laporan", lapService.findByDivisi(idDiv));
             model.addAttribute("statuses", statusRepository.findAll());
             model.addAttribute("divisies", divisiRespository.findAll());
-            model.addAttribute("nama", userRepository.findById(getId.idAdmin).get().getNama());
+            model.addAttribute("nama", userRepository.findById(currentId).get().getNama());
             return "homeDivisi";
         } else if (user.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ROLE_LEARNER"))) {
-            model.addAttribute("basic", getService.getProfileBasic(getId.id));
+            model.addAttribute("basic", getService.getProfileBasic(currentId));
             model.addAttribute("statuses", statusRepository.findAll());
             model.addAttribute("divisies", divisiRespository.findAll());
-            model.addAttribute("userid", getId.id);
+            model.addAttribute("userid", currentId);
             return "home";
+        }else if(user.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ROLE_SUPER_ADMIN"))){
+            return "homeAdmin";
         }
         return "";
     }
 
     @GetMapping("/history")
     public String historyUser(Model model) {
-        model.addAttribute("laporan", lapService.findByUser(getId.id));
+        model.addAttribute("laporan", lapService.findByUser(currentId));
         return "history";
     }
     
