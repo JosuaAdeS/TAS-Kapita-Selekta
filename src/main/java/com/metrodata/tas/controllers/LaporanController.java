@@ -10,6 +10,7 @@ import com.metrodata.tas.entities.Status;
 import com.metrodata.tas.entities.Laporan;
 import com.metrodata.tas.services.EmailService;
 import com.metrodata.tas.services.LaporanService;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +34,7 @@ public class LaporanController {
 
     @PostMapping("savelaporan")
     public String saveLaporan(Laporan input) {
+        input.setTanggalLaporan(new Date());
         lapService.saveLaporan(input);
         if (input.getDivisi().getId() == 1) {
             emailService.sendEmail(
