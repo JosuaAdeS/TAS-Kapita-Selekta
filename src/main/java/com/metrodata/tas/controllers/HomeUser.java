@@ -64,6 +64,7 @@ public class HomeUser {
     public String homeUser(Model model, Divisi d, Principal principal) {
         
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        
         String username = principal.getName();
         String temp = lapService.findByEmail(username).toString();
         currentId = temp.substring(37, 47);
@@ -99,5 +100,4 @@ public class HomeUser {
         model.addAttribute("tracking", trackingService.findByLaporan(id));
         return "tracking";
     }
-    
 }
