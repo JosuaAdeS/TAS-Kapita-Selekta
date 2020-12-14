@@ -38,19 +38,19 @@
                     <table border="0" class="table table-striped" id="myTable"> 
                         <thead class="thead-dark">
                             <tr>
-                                <th>ID Laporan</th>
                                 <th>Judul Laporan</th>
                                 <th>Tanggal</th>
                                 <th>Status</th>
+                                <th>Deskripsi Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr th:each="as : ${laporan}">
-                                <td th:text="${as.id}">ID</td>
-                                <td th:text="${as.judulLaporan}">Judul Laporan</td>
-                                <td th:text="${as.tanggalLaporan}">Tanggal</td>
-                                <td th:text="${as.currentStatus.id}">Status</td>
+                                <td th:text="${as.judulLaporan}"></td>
+                                <td th:text="${as.tanggalLaporan}"></td>
+                                <td th:text="${as.currentStatus.id}"></td>
+                                <td th:text="${as.deskripsiStatus}"></td>
                                 <td>
                                     <a type="button" class="btn btn-primary text-light" th:href="@{tracking/} + ${as.id}" method="REQUEST">
                                         Tracking
