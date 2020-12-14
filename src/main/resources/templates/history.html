@@ -38,6 +38,7 @@
                     <table border="0" class="table table-striped" id="myTable"> 
                         <thead class="thead-dark">
                             <tr>
+                                <th>No</th>
                                 <th>Judul Laporan</th>
                                 <th>Tanggal</th>
                                 <th>Status</th>
@@ -46,7 +47,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="as : ${laporan}">
+                            <tr th:each="as,i : ${laporan}">
+                                <td th:text="${i.index+1}"></td>
                                 <td th:text="${as.judulLaporan}"></td>
                                 <td th:text="${as.tanggalLaporan}"></td>
                                 <td th:text="${as.currentStatus.id}"></td>

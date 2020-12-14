@@ -45,7 +45,7 @@ public class LaporanController {
         if (input.getDivisi().getId() == 1) {
             emailService.sendEmail(
                     "josua5ade@gmail.com",
-                    "New Laporan",
+                    "New Laporan from "+input.getUser().getNama(),
                     "" + input.getUser().getNama()
                     + " telah mengirimkan laporan baru dengan judul " + input.getJudulLaporan()
                     + "\nSilahkan cek dashboard anda di http://localhost:8084/"
@@ -53,7 +53,7 @@ public class LaporanController {
         } else {
             emailService.sendEmail(
                     "robertusbagaskara@gmail.com",
-                    "New Laporan",
+                    "New Laporan from"+input.getUser().getNama(),
                     " " + input.getUser().getNama()
                     + " telah mengirimkan laporan baru dengan judul " + input.getJudulLaporan()
                     + "\nSilahkan cek dashboard anda di http://localhost:8084/"

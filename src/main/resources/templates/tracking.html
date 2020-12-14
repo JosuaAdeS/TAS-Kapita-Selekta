@@ -26,16 +26,18 @@
                 <div style='text-align: right'>
                     <a href="http://localhost:8084/history" class="btn btn-primary pl-5 pr-5 mt-4" type="button">Back</a>
                 </div>
-                <div class="col-15 shadow pt-3 pb-5 br-15 mt-4 mb-5 pr-5 p-5" style="background-color: white">
+                <div class="col-15 shadow pt-3 pb-5 br-15 mt-4 mb-5 pr-5 p-5 " style="background-color: white">
                     <table border="0" class="table table-striped" id="myTable"> 
                         <thead class="thead-dark">
                             <tr>
+                                <th>No</th>
                                 <th>Waktu</th>
                                 <th>Deskripsi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="as : ${tracking}">
+                            <tr th:each="as,i : ${tracking}">
+                                <td th:text="${i.index+1}"></td>
                                 <td th:text="${as.waktu}"></td>
                                 <td th:text="${as.deskripsi.deskripsiTracking}"></td>
                             </tr>
