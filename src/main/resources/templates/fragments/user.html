@@ -11,7 +11,7 @@
                         <a class="nav-link" href="history">History <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Profile <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="basic">Profile <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="logout">Logout <span class="sr-only">(current)</span></a>
@@ -41,7 +41,7 @@
                         <a class="nav-link" href="history">History <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Profile <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="basic">Profile <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="logout">Logout <span class="sr-only">(current)</span></a>
@@ -52,7 +52,31 @@
     </header>
 </div>
 
-<div th:fragment="header-tracking">
+<div th:fragment="header-history">
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="home">Home</a>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="history">History <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="basic">Profile <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout">Logout <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+</div>
+
+<div th:fragment="header-profile">
     <header>
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,6 +90,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Profile <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout">Logout <span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
             </div>

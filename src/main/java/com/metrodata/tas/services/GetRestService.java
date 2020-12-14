@@ -65,4 +65,15 @@ public class GetRestService {
 
     }
     
+    public boolean updateProfileBasic(ProfileBasic input) {
+        HttpEntity<ProfileBasic> request = new HttpEntity<>(input, null);
+        ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://116.254.101.228:8080/ma_test/profile/basic",
+                HttpMethod.POST,
+                request,
+                new ParameterizedTypeReference<Boolean>() {
+        }
+        );
+        return responseEntity.getBody();
+    }
+    
 }
