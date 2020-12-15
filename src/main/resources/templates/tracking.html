@@ -1,10 +1,14 @@
 <html>
     <head>
-        <title> History Laporan </title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Tracking Laporan Anda </title>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <link href="/css/styles.css" rel="stylesheet" />
+        <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
         <style>
             .ml-30{
                 margin-left:30px;
@@ -14,10 +18,130 @@
             }
         </style>
     </head>
-    <body class="col-lg-12" style="background-color:white">
-        <div th:replace="fragments/user::header-tracking"></div> 
-    <center>
+    <body class="col-lg-12 sb-nav-fixed" style="background-color:white">
+        <!-- <div th:replace="fragments/user::header-tracking"></div> -->
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <a class="navbar-brand">Metro Data</a>
+            <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+                <div class="input-group">
+                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
+            <!-- Navbar-->
+            <ul class="navbar-nav ml-auto ml-md-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                        <!-- <a class="dropdown-item" href="#">Settings</a>
+                        <a class="dropdown-item" href="#">Activity Log</a>
+                        <div class="dropdown-divider"></div> -->
+                        <a class="dropdown-item" href="/logout">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">   
+                            <div class="sb-sidenav-menu-heading">Core</div>
+                            <a class="nav-link" href="http://localhost:8084/home">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Dashboard
+                            </a>
+                            <a class="nav-link" href="history">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                History
+                            </a>
+                            <div class="sb-sidenav-menu-heading">Profiling</div>
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                                Profile
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="basic">Basic</a>
+                                    <!-- <a class="nav-link" href="#">Education</a>
+                                    <a class="nav-link" href="#">Occupation</a>
+                                    <a class="nav-link" href="#">Address</a> -->
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Logged in as:</div>
+                        <p th:text="${nama}"></p>
+                    </div>
+                    -->
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid">
+                        <div style='text-align: center;padding-top: 3%;'>
+                            <center>
+                                <div style='text-align: left'>
+                                    <font class='h2'> <strong> History Laporan </strong> </font>
+                                </div>
+                            <div class="row">
+                                <div class="container pt-4">
+                                    <div style='text-align: right'>
+                                        <a href="http://localhost:8084/history" class="btn btn-primary pl-5 pr-5 mt-4" type="button">Back</a>
+                                    </div>
+                                    <div class="col-15 shadow pt-3 pb-5 br-15 mt-4 mb-5 pr-5 p-5 " style="background-color: white">
+                                        <table border="0" class="table table-striped" id="myTable"> 
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Waktu</th>
+                                                    <th>Deskripsi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr th:each="as,i : ${tracking}">
+                                                    <td th:text="${i.index+1}"></td>
+                                                    <td th:text="${as.waktu}"></td>
+                                                    <td th:text="${as.deskripsi.deskripsiTracking}"></td>
+                                                </tr> 
+                                                <!-- not yet -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </center>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </body>
+    
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="/js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="/assets/demo/chart-area-demo.js"></script>
+    <script src="/assets/demo/chart-bar-demo.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+    <script src="/assets/demo/datatables-demo.js"></script>
+</body>
+</html>
+
+
+
+<!--
+<center>
         <div style='text-align: left'>
             <font class='h2'> <strong> History Laporan </strong> </font>
         </div>
@@ -40,17 +164,11 @@
                                 <td th:text="${i.index+1}"></td>
                                 <td th:text="${as.waktu}"></td>
                                 <td th:text="${as.deskripsi.deskripsiTracking}"></td>
-                            </tr>
+                            </tr> -->
                             <!-- not yet -->
-                        </tbody>
+                        <!-- </tbody>
                     </table>
                 </div>
             </div>
         </div>
-    </center>
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</body>
-</html>
+    </center> -->
