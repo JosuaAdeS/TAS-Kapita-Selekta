@@ -66,6 +66,14 @@ public class User implements Serializable {
         this.email = email;
     }
 
+    public User(String id, String nama, String email, Divisi divisi) {
+        this.id = id;
+        this.nama = nama;
+        this.email = email;
+        this.divisi = divisi;
+    }
+
+
     public String getId() {
         return id;
     }

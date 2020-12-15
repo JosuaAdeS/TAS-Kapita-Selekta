@@ -32,10 +32,5 @@ public class RegistrationRestController {
         return "formRegistrasi";
     }
     
-    @PostMapping("save")
-    public String register(RegisterUser input){
-         System.out.println(input);
-         System.out.println(service.register(input));
-         return "redirect:/";
-    }
+    
 }

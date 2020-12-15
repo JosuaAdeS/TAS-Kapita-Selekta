@@ -5,6 +5,7 @@
  */
 package com.metrodata.tas.services;
 
+import com.metrodata.tas.entities.Divisi;
 import com.metrodata.tas.entities.User;
 import com.metrodata.tas.entities.rest.LoginInput;
 import com.metrodata.tas.entities.rest.LoginOutput;
@@ -40,6 +41,14 @@ public class LoginRestService {
     @Autowired
     UserRepository repository;
     public boolean save(User user){
+        try {
+            repository.save(user);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    public boolean saveDivisi(User user, Divisi d){
         try {
             repository.save(user);
             return true;

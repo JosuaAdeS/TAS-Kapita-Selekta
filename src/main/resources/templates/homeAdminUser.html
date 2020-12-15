@@ -76,11 +76,101 @@ and open the template in the editor.
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Dashboard</h1>
+                        <h1 class="mt-4">CRUD User</h1>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table mr-1"></i>
-                                Laporan Selesai
+                                Create
+                            </div>
+                            <div class="card-body">
+                                <form th:object="${registrasi}" th:action="@{saveLaporan}" method="POST">
+                        <div class="pr-4">
+                            <table>
+                                 <tr>
+                                    <td> Name </td>
+                                    <td> <input type="text" placeholder="Write your name ... " class="ml-30 form-control" th:field="*{name}"> </td>
+                                </tr>
+                                <tr>
+                                    <td> Birth Date </td>
+                                    <td> <input type="date" class="form-control ml-30" th:field="*{birthDate}"> </td>
+                                </tr>
+                                <tr>
+                                    <td> Gender </td>
+                                    <td>
+                                        <select class="form-control ml-30" th:field="*{gender}">
+                                            <option value="Laki-laki"> Laki - laki </option>
+                                            <option value="Perempuan"> Perempuan </option>
+                                        </select>
+                                        <!--                                    <input type="text" class="form-control" > -->
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td> Phone </td>
+                                    <td> <input type="text" placeholder="08*********" class="ml-30 form-control" th:field="*{phone}"> </td>
+                                </tr>
+                                <tr>
+                                    <td> Job </td>
+                                    <td> <input type="text" placeholder="Unknown" class="form-control ml-30" th:field="*{job}"> </td>
+                                </tr>
+                                <tr>
+                                    <td> Company </td>
+                                    <td> <input type="text" class="form-control ml-30" th:field="*{currentCompany}"> </td>
+                                </tr>
+                                <tr>
+                                    <td> Degree </td>
+                                    <td> 
+                                        <select class='form-control ml-30' th:field="*{degree}">
+                                            <option value="Strata 1"> Strata 1  </option>
+                                            <option value="Strata 2"> Strata 2  </option>
+                                            <option value="Strata 3"> Strata 3  </option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td> Major </td>
+                                    <td> 
+                                        <select class="ml-30 form-control" th:field="*{major}">
+                                            <option th:each="as : ${majors}" th:value="${as.name}" th:text="${as.name}"></option>
+                                        </select>
+                                    </td>
+                                    <!--<input type="text" class="form-control" th:field="*{major}">-->
+                                </tr>
+                                <tr>
+                                    <td> University </td>
+                                    <td> 
+                                        <select class="ml-30 form-control" th:field="*{university}">
+                                            <option th:each="as : ${universities}" th:value="${as.name}" th:text="${as.name}"></option>
+                                        </select>
+                                        <!--<input type="text" class="form-control" th:field="*{university}">--> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td> Email </td>
+                                    <td> <input type="email" placeholder='sample@gmail.com' class="form-control ml-30" th:field="*{email}"> </td>
+                                </tr>
+                                <tr>
+                                    <td> Status </td>
+                                    <td> <input type="text" placeholder="Belum Lulus" class="ml-30 form-control" th:field="*{status}"> </td>
+                                </tr>
+                                <tr>
+                                    <td> Username </td>
+                                    <td> <input type="text" placeholder="Input Username" class="ml-30 form-control" th:field="*{username}"> </td>
+                                </tr>
+                                <tr>
+                                    <td> Password </td>
+                                    <td> <input type="password" placeholder="Enter Password" class="ml-30 form-control" th:field="*{password}"> </td>
+                                </tr>
+                            </table>
+                            <input style="text-align:center"  type="submit" name="save" value="Register" class="btn btn-primary pl-5 pr-5 mt-4">
+                        </div>
+
+                    </form>
+                            </div>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table mr-1"></i>
+                                Read And Update User
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -88,37 +178,31 @@ and open the template in the editor.
                                         <thead class="thead-dark">
                                             <tr>
                                                 <th>No</th>
-                                                <th>Nama Pengirim</th>
-                                                <th>Judul Laporan</th>
-                                                <th>Tanggal</th>
-                                                <th>Status</th>
+                                                <th>Id</th>
+                                                <th>Nama</th>
                                                 <th>Divisi</th>
+                                                <th>Email</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr th:each="as, i : ${laporan}">
+                                            <tr th:each="as, i : ${users}">
                                                 <td th:text="${i.index+1}"></td>
-                                                <td th:text="${as.user.nama}"></td>
-                                                <td th:text="${as.judulLaporan}"></td>
-                                                <td th:text="${as.tanggalLaporan}"></td>
-                                                <td th:text="${as.currentStatus.status}"></td>
+                                                <td th:text="${as.id}"></td>
+                                                <td th:text="${as.nama}"></td>
                                                 <td th:text="${as.divisi.namaDivisi}"></td>
+                                                <td th:text="${as.email}"></td>
                                                 <td>
                                                     <a type="button" 
                                                        class="btn btn-primary edit-modal text-light" 
                                                        data-toggle="modal" 
-                                                       data-target="#modal2"
+                                                       data-target="#modal3"
                                                        th:data-id="${as.id}"
-                                                       th:data-judullaporan="${as.judulLaporan}"
-                                                       th:data-isilaporan="${as.isiLaporan}"
-                                                       th:data-tanggallaporan="${as.tanggalLaporan}"
-                                                       th:data-status="${as.currentStatus.id}"
-                                                       th:data-person="${as.user.id}"
-                                                       th:data-division="${as.divisi.id}"
-                                                       th:data-deskripsistatus="${as.deskripsiStatus}"
+                                                       th:data-nama="${as.nama}"
+                                                       th:data-divisi="${as.divisi.id}"
+                                                       th:data-email="${as.email}"
                                                        >
-                                                        Detail
+                                                        Update
                                                     </a>
                                                 </td>
                                             </tr>
@@ -129,7 +213,7 @@ and open the template in the editor.
                             </div>
                         </div>
                     </div>
-                    <div th:replace="fragments/laporan::detailLaporan2"></div>
+                    <div th:replace="fragments/laporan::detailUser"></div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
@@ -158,30 +242,15 @@ and open the template in the editor.
             $(document).on("click", ".edit-modal", function () {
 
                 var id = $(this).data('id');
-                var judulLaporan = $(this).data('judullaporan');
-                var isiLaporan = $(this).data('isilaporan');
-                var tanggalLaporan = $(this).data('tanggallaporan');
-                var status = $(this).data('status');
-                var person = $(this).data('person');
-                var division = $(this).data('division');
-                var deskripsiStatus = $(this).data('deskripsistatus');
+                var nama = $(this).data('nama');
+                var divisi = $(this).data('divisi');
+                var email = $(this).data('email');
 
                 $(".modal-body #id").val(id);
-                $(".modal-body #judullaporan").val(judulLaporan);
-                $(".modal-body #isiLaporan").val(isiLaporan);
-                $(".modal-body #tanggalLaporan").val(tanggalLaporan);
-                $(".modal-body #status").val(status);
-                $(".modal-body #person").val(person);
-                $(".modal-body #division").val(division);
-                $(".modal-body #deskripsiStatus").val(deskripsiStatus);
-
-                if ($('#status').val() == 2) {
-                    $('#status').prop("disabled", "disabled");
-                } else if ($('#status').val() == 4) {
-                    $('#status').prop("disabled", "disabled");
-                } else {
-                    $('#status').prop("disabled", false);
-                }
+                $(".modal-body #nama").val(nama);
+                $(".modal-body #divisi").val(divisi);
+                $(".modal-body #email").val(email);
+                
             });
         </script>
 

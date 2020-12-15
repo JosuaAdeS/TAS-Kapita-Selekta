@@ -8,8 +8,12 @@ package com.metrodata.tas.controllers;
 import com.metrodata.tas.entities.Divisi;
 import com.metrodata.tas.entities.Status;
 import com.metrodata.tas.entities.Laporan;
+import com.metrodata.tas.entities.User;
+import com.metrodata.tas.entities.rest.RegisterUser;
 import com.metrodata.tas.services.EmailService;
 import com.metrodata.tas.services.LaporanService;
+import com.metrodata.tas.services.LoginRestService;
+import com.metrodata.tas.services.RegistrationRestService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,6 +37,13 @@ public class LaporanController {
 
     @Autowired
     EmailService emailService;
+    
+    @Autowired
+    RegistrationRestService service;
+    
+    @Autowired
+    LoginRestService loginRestService;
+    
 
     @PostMapping("savelaporan")
     public String saveLaporan(Laporan input) throws ParseException {
@@ -78,6 +89,12 @@ public class LaporanController {
                 + "\n'" + input.getDeskripsiStatus() + "' --Divisi "+input.getDivisi().getNamaDivisi());
 
         return "redirect:/home";
+    }
+    
+    @PostMapping("admin/saveLaporan")
+    public String register(RegisterUser input){
+         service.register(input);
+         return "redirect:/admin/user";
     }
 
 }

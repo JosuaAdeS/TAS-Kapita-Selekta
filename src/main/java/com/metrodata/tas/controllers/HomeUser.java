@@ -9,6 +9,7 @@ import com.metrodata.tas.entities.Divisi;
 import com.metrodata.tas.entities.Laporan;
 import com.metrodata.tas.entities.Status;
 import com.metrodata.tas.entities.User;
+import com.metrodata.tas.entities.rest.RegisterUser;
 import com.metrodata.tas.repositories.DeskripsiTrackingRepository;
 import com.metrodata.tas.repositories.DivisiRespository;
 import com.metrodata.tas.repositories.StatusRepository;
@@ -62,7 +63,6 @@ public class HomeUser {
     
     @GetMapping("/home")
     public String homeUser(Model model, Principal principal) {
-        
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         
         String username = principal.getName();
@@ -87,6 +87,8 @@ public class HomeUser {
             model.addAttribute("userid", currentId);
             return "home";
         }else if(user.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ROLE_SUPER_ADMIN"))){
+            model.addAttribute("laporan", lapService.getAll());
+            model.addAttribute("nama", userRepository.findById(currentId).get().getNama());
             return "homeAdmin";
         }
         return "";
@@ -137,6 +139,19 @@ public class HomeUser {
         model.addAttribute("nama", userRepository.findById(currentId).get().getNama());
         
         return "homeDivisiDenied";
+    }
+
+    @GetMapping("/admin/user")
+    public String homeAdminUser(Model model, Principal principal) {
+        int idDiv = userRepository.findById(currentId).get().getDivisi().getId();
+        model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("statuses", statusRepository.findAll());
+        model.addAttribute("divisies", divisiRespository.findAll());
+        model.addAttribute("nama", userRepository.findById(currentId).get().getNama());
+        model.addAttribute("registrasi",new RegisterUser());
+        model.addAttribute("universities", getService.getAllUniversity());
+        model.addAttribute("majors", getService.getAllMajor());
+        return "homeAdminUser";
     }
     
     @GetMapping("/history")

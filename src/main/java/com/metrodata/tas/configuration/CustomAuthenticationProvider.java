@@ -5,6 +5,7 @@
  */
 package com.metrodata.tas.configuration;
 
+import com.metrodata.tas.entities.Divisi;
 import com.metrodata.tas.entities.rest.LoginInput;
 import com.metrodata.tas.entities.rest.LoginOutput;
 import com.metrodata.tas.services.LoginRestService;
@@ -55,7 +56,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             final UserDetails principal = new User(name, password, grantedAuths);
             final Authentication auth = new UsernamePasswordAuthenticationToken(principal, password, grantedAuths);
 
-            if (service.getById(loginOut.getUser().getId())) {
+            if (service.getById(loginOut.getUser().getId()) || service.getById("USER-00052")) {
                 System.out.println("Sudah pernah login sebelumnya");
             } else {
                 service.save(new com.metrodata.tas.entities.User(loginOut.getUser().getId(), loginOut.getUser().getName(), loginOut.getUser().getEmail()));
